@@ -9,7 +9,6 @@ import * as RateLimitRedisStore from "rate-limit-redis";
 import { applyMiddleware } from "graphql-middleware";
 import * as express from "express";
 import { RedisPubSub } from "graphql-redis-subscriptions";
-const pubsub = new RedisPubSub();
 
 import { redis } from "./redis";
 import { createTypeormConn } from "./utils/createTypeormConn";
@@ -31,6 +30,11 @@ export const startServer = async () => {
 
   const schema = genSchema() as any;
   applyMiddleware(schema, middleware);
+
+  const pubsub = new RedisPubSub(process.env.NODE_ENV == 'production' ? {
+    connection: process.env.REDIS_URL as any
+  } : {});
+
 
   const server = new GraphQLServer({
     schema,
