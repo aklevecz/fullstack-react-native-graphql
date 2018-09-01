@@ -23,7 +23,7 @@ export const resolvers: ResolverMap = {
         userId: session.userId
       }).save();
 
-      redis.lpush(listingCacheKey, JSON.stringify(listing));
+      // redis.lpush(listingCacheKey, JSON.stringify(listing));
 
       return true;
     }
