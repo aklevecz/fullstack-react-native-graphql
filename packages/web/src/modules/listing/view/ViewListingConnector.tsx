@@ -22,7 +22,10 @@ export class ViewListingConnector extends React.PureComponent<
                 return (
                 <div>
                 <div>{data.listing.name}</div>
+                <div>
                 <Link to={`/listing/${listingId}/chat`}>chat</Link>
+                </div>
+                <Link to={`/listing/${listingId}/edit`}>edit</Link>
                 </div>
                 )
             }}

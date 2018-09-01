@@ -168,6 +168,23 @@ export interface RegisterMutationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: UpdateListingMutation
+// ====================================================
+
+export interface UpdateListingMutation {
+  updateListing: boolean;
+}
+
+export interface UpdateListingMutationVariables {
+  listingId: string;
+  input: UpdateListingInput;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: ViewListingQuery
 // ====================================================
 
@@ -179,6 +196,14 @@ export interface ViewListingQuery_viewListing_owner {
 export interface ViewListingQuery_viewListing {
   id: string;
   name: string;
+  category: string;
+  description: string;
+  price: number;
+  beds: number;
+  guests: number;
+  longitude: number;
+  latitude: number;
+  amenities: string[];
   pictureUrl: string;
   owner: ViewListingQuery_viewListing_owner;
 }
@@ -223,6 +248,33 @@ export interface ViewMessagesQueryVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL subscription operation: NewMessageSubscrition
+// ====================================================
+
+export interface NewMessageSubscrition_newMessage_user {
+  id: string;
+  email: string;
+}
+
+export interface NewMessageSubscrition_newMessage {
+  text: string;
+  user: NewMessageSubscrition_newMessage_user;
+  listingId: string;
+}
+
+export interface NewMessageSubscrition {
+  newMessage: NewMessageSubscrition_newMessage;
+}
+
+export interface NewMessageSubscritionVariables {
+  listingId: string;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: MeQuery
 // ====================================================
 
@@ -245,6 +297,21 @@ export interface MeQuery {
 export interface MessageInput {
   text: string;
   listingId: string;
+}
+
+// 
+export interface UpdateListingInput {
+  name?: string | null;
+  picture?: any | null;
+  pictureUrl?: string | null;
+  category?: string | null;
+  description?: string | null;
+  price?: number | null;
+  beds?: number | null;
+  guests?: number | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  amenities?: string[] | null;
 }
 
 //==============================================================
