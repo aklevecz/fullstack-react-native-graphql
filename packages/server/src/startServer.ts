@@ -107,7 +107,7 @@ export const startServer = async () => {
     console.log('HALLLOOOOOOO');
     listingStrings=['beep'];
   }
-  console.log(listingStrings.length);
+  console.log(listingStrings);
   await redis.lpush(listingCacheKey, ...listingStrings);
   console.log(await redis.lrange(listingCacheKey, 0, -1));
 
