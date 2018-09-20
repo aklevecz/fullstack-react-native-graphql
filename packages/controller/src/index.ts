@@ -12,3 +12,4 @@ export * from "./schemaTypes";
 export * from "./types/NormalizedErrorMap";
 export * from "./modules/auth/AuthRoute";
 export * from "./modules/LogoutController";
+export * from "./modules/SearchListings";
