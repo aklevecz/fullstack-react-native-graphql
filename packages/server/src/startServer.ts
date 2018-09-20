@@ -102,7 +102,12 @@ export const startServer = async () => {
   await redis.del(listingCacheKey);
   // fill cache
   const listings = await Listing.find();
-  const listingStrings = listings.map(x => JSON.stringify(x));
+  let listingStrings = listings.map(x => JSON.stringify(x));
+  if (listingStrings.length===0){
+    console.log('HALLLOOOOOOO');
+    listingStrings=['beep'];
+  }
+  console.log(listingStrings.length);
   await redis.lpush(listingCacheKey, ...listingStrings);
   console.log(await redis.lrange(listingCacheKey, 0, -1));
 
