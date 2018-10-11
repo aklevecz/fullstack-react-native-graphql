@@ -1,4 +1,8 @@
 @import "~antd/dist/antd.css";
+@font-face{
+    font-family:PhenixAmerican;
+    src:local('./FONTS/PhenixAmerican.ttf');
+}
 /* home page */
 body{
     background-color:black;
@@ -14,15 +18,6 @@ h1,h2 {
 
 .listing {
     margin:0 auto;
-}
-
-/* font definitions */
-.font-black {
-    font-family: Roboto-Black, sans-serif;
-}
-
-.font-italic {
-    font-family: Roboto-Italic, sans-serif;
 }
 
 a {
