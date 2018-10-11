@@ -64,7 +64,7 @@ export class Header extends React.Component {
                                 <text transform="matrix(1 0 0 1 70 127.2432)" fill="black" fontFamily="'PhenixAmerican'" fontSize="87.823">löst_mini_ticky</text>
                             </Link>
                             {!data.me ?
-                            <a href={process.env.REACT_APP_SERVER_URL+'/auth/spotify'}>
+                            <a href={process.env.REACT_APP_SERVER_URL+'auth/spotify'}>
                             <text transform="matrix(1 0 0 1 586.001 127.2432)" fill="black" fontFamily="'PhenixAmerican'" fontSize="45.0921">sign_in</text>
                             </a> 
                             :
