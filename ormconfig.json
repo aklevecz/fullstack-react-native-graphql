@@ -4,7 +4,6 @@
     "type": "postgres",
     "synchronize": true,
     "logging": true,
-    "dropSchema": true
   },
   {
     "name": "development",

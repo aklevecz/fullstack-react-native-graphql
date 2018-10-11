@@ -109,7 +109,7 @@ export const startServer = async () => {
       {
         clientID: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-        callbackURL: process.env.NODE_ENV == 'production' ? 'https://dry-wave-89320.herokuapp.com/':'http://localhost:4000/auth/spotify/callback',
+        callbackURL: process.env.NODE_ENV === 'production' ? 'https://dry-wave-89320.herokuapp.com/auth/spotify/callback':'http://localhost:4000/auth/spotify/callback',
         includeEmail:true,
         passReqToCallback: true,
         scope: ['user-read-email', 'user-read-private'],
@@ -190,7 +190,7 @@ export const startServer = async () => {
       if (req.sessionID && req.session){
         await redis.lpush(`${userSessionIdPrefix}${req.session.userId}`, req.sessionID);
       }
-      res.redirect('http://localhost:3000');
+      process.env.NODE_ENV === 'production' ? res.redirect(process.env.FRONTEND_HOST as string) : res.redirect('http://localhost:3000');
     }
   );
 
