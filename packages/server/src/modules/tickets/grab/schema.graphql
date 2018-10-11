@@ -1,0 +1,7 @@
+type Ticket {
+  ticketId: String!
+}
+
+type Mutation {
+  grabTicket(listingId: String!): Ticket
+}

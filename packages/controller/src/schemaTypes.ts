@@ -30,20 +30,15 @@ export interface ForgotPasswordChangeMutationVariables {
 // ====================================================
 
 export interface CreateListingMutation {
-  createListing: boolean;
+  createListing: string;
 }
 
 export interface CreateListingMutationVariables {
   picture?: any | null;
-  name: string;
-  category: string;
-  description: string;
-  price: number;
-  beds: number;
-  guests: number;
-  latitude: number;
-  longitude: number;
-  amenities: string[];
+  artist: string;
+  venue: string;
+  date: string;
+  spotifyId: string;
 }
 
 
@@ -67,6 +62,23 @@ export interface CreateMessageMutationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: CreateTicketMutation
+// ====================================================
+
+export interface CreateTicketMutation {
+  createTicket: boolean;
+}
+
+export interface CreateTicketMutationVariables {
+  ticket?: any | null;
+  listingId: string;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: FindListingsQuery
 // ====================================================
 
@@ -77,8 +89,10 @@ export interface FindListingsQuery_findListings_owner {
 
 export interface FindListingsQuery_findListings {
   id: string;
-  name: string;
+  artist: string;
+  venue: string;
   pictureUrl: string;
+  date: string;
   owner: FindListingsQuery_findListings_owner;
 }
 
@@ -100,6 +114,26 @@ export interface SendForgotPasswordEmailMutation {
 
 export interface SendForgotPasswordEmailMutationVariables {
   email: string;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: GrabTicketMutation
+// ====================================================
+
+export interface GrabTicketMutation_grabTicket {
+  ticketId: string;
+}
+
+export interface GrabTicketMutation {
+  grabTicket: GrabTicketMutation_grabTicket | null;
+}
+
+export interface GrabTicketMutationVariables {
+  listingId: string;
 }
 
 
@@ -134,18 +168,6 @@ export interface LoginMutationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: LogoutMutation
-// ====================================================
-
-export interface LogoutMutation {
-  logout: boolean | null;
-}
-
-
-/* tslint:disable */
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: RegisterMutation
 // ====================================================
 
@@ -168,6 +190,18 @@ export interface RegisterMutationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: LogoutMutation
+// ====================================================
+
+export interface LogoutMutation {
+  logout: boolean | null;
+}
+
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: SearchListingsQuery
 // ====================================================
 
@@ -178,15 +212,9 @@ export interface SearchListingsQuery_searchListings_owner {
 
 export interface SearchListingsQuery_searchListings {
   id: string;
-  name: string;
-  category: string;
-  description: string;
-  price: number;
-  beds: number;
-  guests: number;
-  longitude: number;
-  latitude: number;
-  amenities: string[];
+  artist: string;
+  venue: string;
+  date: string;
   pictureUrl: string;
   owner: SearchListingsQuery_searchListings_owner;
 }
@@ -233,15 +261,9 @@ export interface ViewListingQuery_viewListing_owner {
 
 export interface ViewListingQuery_viewListing {
   id: string;
-  name: string;
-  category: string;
-  description: string;
-  price: number;
-  beds: number;
-  guests: number;
-  longitude: number;
-  latitude: number;
-  amenities: string[];
+  artist: string;
+  venue: string;
+  date: string;
   pictureUrl: string;
   owner: ViewListingQuery_viewListing_owner;
 }
@@ -339,9 +361,7 @@ export interface MessageInput {
 
 // 
 export interface SearchListingsInput {
-  guests?: number | null;
-  beds?: number | null;
-  name?: string | null;
+  artist?: string | null;
 }
 
 // 

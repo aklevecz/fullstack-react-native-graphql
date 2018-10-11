@@ -9,7 +9,7 @@ type Props = RouteProps;
 class C extends React.PureComponent<ChildProps<Props, MeQuery>> {
   renderRoute = (routeProps: RouteComponentProps<{}>) => {
     const { data, component } = this.props;
-
+    console.log(data);
     if (!data || data.loading) {
       // loading screen
       return null;

@@ -13,3 +13,5 @@ export * from "./types/NormalizedErrorMap";
 export * from "./modules/auth/AuthRoute";
 export * from "./modules/LogoutController";
 export * from "./modules/SearchListings";
+export * from "./modules/CreateTicketController";
+export * from "./modules/GrabTicket";

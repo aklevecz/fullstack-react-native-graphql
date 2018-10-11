@@ -6,7 +6,7 @@ import { CallLogout } from "./CallLogout";
 
 export class Logout extends React.PureComponent<RouteComponentProps<{}>> {
   onFinish = () => {
-    this.props.history.push("/login");
+    this.props.history.push("/listings");
   };
 
   render() {

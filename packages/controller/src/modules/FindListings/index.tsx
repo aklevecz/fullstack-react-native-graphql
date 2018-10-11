@@ -11,8 +11,10 @@ export const findListingsQuery = gql`
   query FindListingsQuery {
     findListings {
       id
-      name
+      artist
+      venue
       pictureUrl
+      date
       owner {
         id
         email
@@ -34,9 +36,11 @@ export const withFindListings = graphql<
 >(findListingsQuery, {
   props: ({ data }) => {
     let listings: FindListingsQuery_findListings[] = [];
-
     if (data && !data.loading && data.findListings) {
+      
       listings = data.findListings;
+      console.log(listings);
+
     }
 
     return {

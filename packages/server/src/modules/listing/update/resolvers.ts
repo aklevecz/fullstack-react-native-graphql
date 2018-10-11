@@ -31,6 +31,9 @@ export const resolvers: ResolverMap = {
       const listings = await redis.lrange(listingCacheKey, 0, -1);
       const idx = listings.findIndex((x:string) => JSON.parse(x).id === listingId);
       await redis.lset(listingCacheKey, idx, JSON.stringify(newListing));
+
+
+      //redis.lpush(ticketCacheKey, JSON.stringify({tid:ticket.id,lid:listing.id}));
       
 
       return true;

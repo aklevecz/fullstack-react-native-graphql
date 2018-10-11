@@ -1,0 +1,8 @@
+input TicketInput {
+  ticket: Upload
+  listingId: String!
+}
+
+type Mutation {
+  createTicket(input: TicketInput!): Boolean!
+}

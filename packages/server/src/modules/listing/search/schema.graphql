@@ -1,7 +1,5 @@
 input SearchListingsInput {
-  guests: Int
-  beds: Int
-  name: String
+  artist: String
 }
 
 type Query {

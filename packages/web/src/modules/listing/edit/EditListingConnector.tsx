@@ -1,60 +1,33 @@
 import * as React from "react";
-import { ViewListing, UpdateListing } from "@abb/controller";
 import { RouteComponentProps } from "react-router-dom";
-import { ListingForm, defaultListingFormValues } from "../shared/ListingForm";
+import { FormikActions } from "formik";
+import { withCreateTicket, WithCreateTicket } from "@abb/controller";
+import { ListingFormValues, CreateTicketForm } from "../shared/CreateTicketForm";
 
-export class EditListingConnector extends React.PureComponent<
-  RouteComponentProps<{
-    listingId: string;
-  }>
+
+class C extends React.PureComponent<
+  RouteComponentProps<{listingId: string;
+  }> & WithCreateTicket
 > {
-  render() {
+
+  submit = async (
+    values: ListingFormValues,
+    { setSubmitting }: FormikActions<ListingFormValues>
+  ) => {
     const {
-      match: {
-        params: { listingId }
-      }
-    } = this.props;
-    return (
-      <ViewListing listingId={listingId}>
-        {data => {
-          console.log(data);
-          if (!data.listing) {
-            return <div>...loading</div>;
-          }
+        match: {
+          params: { listingId }
+        }
+      } = this.props;
+      const {picture} = values;
+      await this.props.createTicket({ticket:picture ,listingId});
+      setSubmitting(false);
+  };
 
-          const { id: _, owner: ___, ...listing } = data.listing;
+  render() {
 
-          return (
-            <UpdateListing>
-              {({ updateListing }) => (
-                <ListingForm
-                  initialValues={{
-                    ...defaultListingFormValues,
-                    ...listing
-                  }}
-                  submit={async values => {
-                    const { __typename: ____, ...newValues } = values as any;
-
-                    if (newValues.pictureUrl) {
-                      const parts = newValues.pictureUrl.split("/");
-                      newValues.pictureUrl = parts[parts.length - 1];
-                    }
-
-                    const result = await updateListing({
-                      variables: {
-                        input: newValues,
-                        listingId
-                      }
-                    });
-
-                    console.log(result);
-                  }}
-                />
-              )}
-            </UpdateListing>
-          );
-        }}
-      </ViewListing>
-    );
+    return <CreateTicketForm submit={this.submit} /> ;
   }
 }
+
+export const EditListingConnector = withCreateTicket(C);

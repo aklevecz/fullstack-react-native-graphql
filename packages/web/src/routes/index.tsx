@@ -14,10 +14,16 @@ import { Logout } from "../modules/logout";
 import { ViewListingConnector } from "../modules/listing/view/ViewListingConnector";
 import { MessageConnector } from "../modules/listing/messages/MessageConnector";
 import { EditListingConnector } from "../modules/listing/edit/EditListingConnector";
+import { Header } from "../modules/ui/Header";
+import { Me } from "../modules/me/Me";
+import { GrabTicketConnector } from "../modules/listing/grab/GrabTicketConnector";
 
 export const Routes = () => (
   <BrowserRouter>
+  <div>
+    <Header />
     <Switch>
+      <Route exact={true} path="/me" component={Me} />
       <Route exact={true} path="/register" component={RegisterConnector} />
       <Route exact={true} path="/login" component={LoginConnector} />
       <Route
@@ -31,13 +37,15 @@ export const Routes = () => (
         component={ChangePasswordConnector}
       />
       <Route path="/m" component={TextPage} />
-      <Route path="/listings" component={FindListingsConnector} />
+      <Route path="/listings"  exact={true} component={FindListingsConnector} />
       <Route path="/logout" component={Logout} />
       <Route exact={true} path="/listing/:listingId" component={ViewListingConnector} />
+      <Route path="/listing/:listingId/grab" component={GrabTicketConnector}/>
       <Route path="/listing/:listingId/chat" component={MessageConnector}/>
       <Route path="/listing/:listingId/edit" component={EditListingConnector}/>
       <AuthRoute path="/create-listing" component={CreateListingConnector} />
       <AuthRoute path="/delete-demo" component={DemoDelete} />
     </Switch>
+    </div>
   </BrowserRouter>
 );

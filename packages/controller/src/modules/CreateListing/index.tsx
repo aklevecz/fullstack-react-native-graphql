@@ -11,30 +11,36 @@ import {
 export const createListingMutation = gql`
   mutation CreateListingMutation(
     $picture: Upload,
-    $name: String!
-    $category: String!
-    $description: String!
-    $price: Int!
-    $beds: Int!
-    $guests: Int!
-    $latitude: Float!
-    $longitude: Float!
-    $amenities: [String!]!
+    $artist: String!
+    $venue: String!
+    $date: String!
+    $spotifyId: String!
   ) {
     createListing(
       input: {
         picture: $picture
-        name: $name
-        category: $category
-        description: $description
-        price: $price
-        beds: $beds
-        guests: $guests
-        latitude: $latitude
-        longitude: $longitude
-        amenities: $amenities
+        artist: $artist
+        venue: $venue
+        date: $date
+        spotifyId: $spotifyId
       }
     )
+  }
+`;
+
+const findListingsQuery = gql`
+  query FindListingsQuery {
+    findListings {
+      id
+      artist
+      venue
+      pictureUrl
+      date
+      owner {
+        id
+        email
+      }
+    }
   }
 `;
 
@@ -53,12 +59,15 @@ export const withCreateListing = graphql<
       if (!mutate) {
         return;
       }
-
+      
       const response = await mutate({
-        variables
+        variables,
+        refetchQueries:[{
+          query:findListingsQuery
+        }]
       });
-
       console.log(response);
+      return response;
     }
   })
 });

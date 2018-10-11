@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FieldProps } from "formik";
 import { Form, Input, InputNumber } from "antd";
-
+import "./spotifySearch.css";
 const FormItem = Form.Item;
 
 export const InputField: React.SFC<
@@ -25,9 +25,9 @@ export const InputField: React.SFC<
     <FormItem
       label={label}
       help={errorMsg}
-      validateStatus={errorMsg ? "error" : undefined}
-    >
+      validateStatus={errorMsg ? "error" : undefined}    >
       <Comp
+            style={{color:"white",backgroundColor:"black",border:"2px white solid",borderRadius:"0px"}}
         {...field}
         {...props}
         onChange={

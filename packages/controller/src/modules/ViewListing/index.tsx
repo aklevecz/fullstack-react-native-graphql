@@ -8,15 +8,9 @@ export const viewListingQuery = gql`
   query ViewListingQuery($id: String!) {
     viewListing(id: $id) {
       id
-      name
-      category
-      description
-      price
-      beds
-      guests
-      longitude
-      latitude
-      amenities
+      artist
+      venue
+      date
       pictureUrl
       owner {
         id
@@ -37,6 +31,7 @@ interface Props {
 }
 
 export class ViewListing extends React.PureComponent<Props> {
+
   render() {
     const { children, listingId } = this.props;
     return (

@@ -11,6 +11,7 @@ export interface Session extends Express.Session {
 export interface Context {
   redis: Redis;
   url: string;
+  s3: string;
   session: Session;
   req: Express.Request;
   res: express.Response;

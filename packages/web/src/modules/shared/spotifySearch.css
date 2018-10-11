@@ -1,0 +1,61 @@
+.artist-search{
+    margin: 20px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    letter-spacing:1px;
+    border-bottom: 2px white solid;
+    border-right: 1px white solid;
+    padding:4%;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    cursor:pointer;
+    background-color:rgb(0, 0, 0);
+}
+
+.artist-search:hover{
+    border-right: 3px white solid;
+    border-bottom: 3px white solid;
+    background-color:rgb(255, 255, 255);
+    color: black;
+}
+
+.artist-image {
+    vertical-align: middle;
+    border-style: none;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    border-radius: 100%;
+    margin-left: 7%;
+    border: 3px white solid;
+}
+
+.artist-name{
+    width: 70%;
+    line-height: 100px;
+    text-align: center;
+}
+
+input {
+    width:60%;
+    margin-right:10px;
+    background-color: black;
+    color:white;
+    padding:7px;
+    text-align: center;
+}
+
+#confirm-cancel-container {
+    display:flex;
+    justify-content: space-between;
+    margin: 26px;
+}
+button{
+    font-family: 'IBM Plex Sans', sans-serif;
+    margin:2%;
+    background-color:black;
+    color:white;
+    cursor: pointer;
+    height:50px;
+}
+

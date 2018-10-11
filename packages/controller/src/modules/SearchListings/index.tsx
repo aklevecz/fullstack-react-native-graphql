@@ -16,15 +16,9 @@ export const searchListingsQuery = gql`
     limit: $limit
     ) {
       id
-      name
-      category
-      description
-      price
-      beds
-      guests
-      longitude
-      latitude
-      amenities
+      artist
+      venue
+      date
       pictureUrl
       owner {
         id

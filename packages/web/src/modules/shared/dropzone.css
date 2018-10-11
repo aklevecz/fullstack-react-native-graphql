@@ -1,0 +1,29 @@
+#dropzone-container {
+    margin-top: 8%;
+    display:flex;
+    justify-content: center;
+    color:"white";
+}
+
+.dropzone {
+    width : 50%;
+    border : 1px solid white;
+    color:"white";
+    text-align: left;
+    padding:5%;
+
+  }
+
+  #dropzone-img {
+      width:50%;
+      height:100%;
+  }
+
+  #dropzone-container>button{
+    margin-top: 3%;
+    color: white;
+    width: 151px;
+    border: 3px red solid;
+    background-color: black;
+    font-weight: bold;
+}

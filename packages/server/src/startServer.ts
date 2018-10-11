@@ -10,16 +10,21 @@ import { applyMiddleware } from "graphql-middleware";
 import * as express from "express";
 import { RedisPubSub } from "graphql-redis-subscriptions";
 
+import * as passport from 'passport';
+const SpotifyStrategy = require('passport-spotify').Strategy;
+
 import { redis } from "./redis";
 import { createTypeormConn } from "./utils/createTypeormConn";
 import { confirmEmail } from "./routes/confirmEmail";
 import { genSchema } from "./utils/genSchema";
-import { redisSessionPrefix, listingCacheKey } from "./constants";
+import { redisSessionPrefix, listingCacheKey, ticketCacheKey, finderDefaultId, userSessionIdPrefix } from "./constants";
 import { createTestConn } from "./testUtils/createTestConn";
 // import { middlewareShield } from "./shield";
 import { middleware } from "./middleware";
 import { userLoader } from "./loaders/UserLoader";
 import { Listing } from "./entity/Listing";
+import { Ticket } from "./entity/Ticket";
+import { User } from "./entity/User";
 
 const SESSION_SECRET = "ajslkjalksjdfkl";
 const RedisStore = connectRedis(session as any);
@@ -42,6 +47,7 @@ export const startServer = async () => {
     context: ({ request, response }) => ({
       redis,
       url: request ? request.protocol + "://" + request.get("host") : "",
+      s3: "http://s3-us-west-1.amazonaws.com/last-minute-ticket",
       session: request ? request.session : undefined,
       req: request,
       res: response,
@@ -98,18 +104,118 @@ export const startServer = async () => {
     // await conn.runMigrations();
   }
 
+  passport.use(
+    new SpotifyStrategy(
+      {
+        clientID: process.env.SPOTIFY_CLIENT_ID,
+        clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+        callbackURL: process.env.NODE_ENV == 'production' ? 'https://dry-wave-89320.herokuapp.com/':'http://localhost:4000/auth/spotify/callback',
+        includeEmail:true,
+        passReqToCallback: true,
+        scope: ['user-read-email', 'user-read-private'],
+      },
+      async function (req:any, accessToken:any, refreshToken:any, expires_in:any, profile:any, done:any) {
+        // User.findOrCreate({ spotifyId: profile.id }, function(err, user) {
+        //   return done(err, user);
+        // });
+        console.log(accessToken);
+        console.log(refreshToken);
+        console.log(expires_in);
+        console.log(profile._json);
+        console.log(req.session.userId);
+        const {id, display_name,email} = profile._json;
+
+        let user = await User.findOne({where:{email}});
+        if (!user){
+          console.log('no email match');
+          const user = await User.create({
+                email,
+                password: email + refreshToken,
+                spotifyId: id,
+                spotifyName: display_name,
+                spotifyRefreshToken: refreshToken,
+          }).save();
+          console.log(user);
+        } else if (user.spotifyId==='null') {
+          console.log("no id");
+          user.spotifyId = id;
+          user.spotifyName = display_name;
+          user.spotifyRefreshToken = refreshToken;
+          user.save();
+        } else {
+          console.log('we have a user');
+          console.log('WAAAGGG');
+          console.log(user.spotifyId);
+        }
+
+        req.session.spotifyAccessToken = accessToken;
+        if (user){
+          req.session.userId = user.id;
+        }
+
+        // if (!req.session.userId){
+          
+        //   await User.create({email:email,
+        //                      password:id+refreshToken,
+        //                      spotifyId:id,
+        //                      spotifyName:display_name,
+        //                      spotifyRefreshToken:refreshToken,
+        //                      }).save();
+        // }
+
+
+        console.log(id,display_name,email);
+        return done(null, profile);
+      }
+    )
+  );
+  server.express.use(passport.initialize());
+  //server.express.use(passport.session());
+  server.express.get('/auth/spotify', passport.authenticate('spotify'), function(req, res) {
+    req
+    res
+    // The request will be redirected to spotify for authentication, so this
+    // function will not be called.
+  });  
+  
+  server.express.get(
+    "/auth/spotify/callback",
+    passport.authenticate("spotify", {session:false}),
+    async function(req,res){
+      console.log('callback420');
+      if (req.session){
+        console.log(req.session.spotifyAccessToken);
+      }
+      // is this necessary?
+      if (req.sessionID && req.session){
+        await redis.lpush(`${userSessionIdPrefix}${req.session.userId}`, req.sessionID);
+      }
+      res.redirect('http://localhost:3000');
+    }
+  );
+
   // clear the cache
   await redis.del(listingCacheKey);
+  await redis.del(ticketCacheKey);
   // fill cache
   const listings = await Listing.find();
   let listingStrings = listings.map(x => JSON.stringify(x));
-  if (listingStrings.length===0){
+
+  const tickets = await Ticket.find({where:{finderId:finderDefaultId}});
+  let ticketStrings = tickets.map(x => JSON.stringify({tid:x.id,lid:x.listingId}));
+
+  // shitty logic for empty listing table
+  if (listingStrings.length>0){
     console.log('HALLLOOOOOOO');
-    listingStrings=['beep'];
+    await redis.lpush(listingCacheKey, ...listingStrings);
   }
-  console.log(listingStrings);
-  await redis.lpush(listingCacheKey, ...listingStrings);
-  console.log(await redis.lrange(listingCacheKey, 0, -1));
+  if (ticketStrings.length > 0 ){
+    console.log('HALLLOOOOOOO2');
+    await redis.lpush(ticketCacheKey, ...ticketStrings);
+  }
+  // shitshitshitty
+
+
 
   const port = process.env.PORT || 4000;
   const app = await server.start({

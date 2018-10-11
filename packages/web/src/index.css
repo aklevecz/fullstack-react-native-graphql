@@ -1,1 +1,196 @@
 @import "~antd/dist/antd.css";
+/* home page */
+body{
+    background-color:black;
+}
+
+h1,h2 {
+    font-family: 'Montserrat', sans-serif;
+    color:white;
+    text-align: center;
+    padding: 9%;
+    font-size: 23px
+}
+
+.listing {
+    margin:0 auto;
+}
+
+/* font definitions */
+.font-black {
+    font-family: Roboto-Black, sans-serif;
+}
+
+.font-italic {
+    font-family: Roboto-Italic, sans-serif;
+}
+
+a {
+    color:white;
+}
+
+/* @keyframes glowing {
+    0% { box-shadow: 0 0 100px #e2f72b; }
+    40% { box-shadow: 0 0 20px #ed516d; }
+    60% { box-shadow: 0 0 20px #ed516d; }
+    100% { box-shadow: 0 0 100px #ed516d; }
+  } */
+
+  @keyframes glowing {
+    0% { color: #fdfcfc; }
+    20% { color: #f38b9e; }
+    40% { color: #f3395e; }
+    60% { color: #f38b9e; }
+    80% { color: #f38b9e; }
+    100% { color: #fdfcfc; }
+  }
+  
+  .glow {
+    animation: glowing 5000ms infinite;
+  }
+
+  .listing {
+    font-family: 'Montserrat', sans-serif;
+    padding:20px;
+    background-color:black;
+    color:white;
+    width:60%;
+    margin:0 auto;
+    margin-top:10px;
+    text-align:left;
+    margin-left:39%;
+    /* border-right:2px #f34f4f solid; */
+    /* border-bottom:2px #f34f4f solid; */
+
+  }
+
+  .artist-listing-name {
+      font-size:2em;
+      font-weight:bold;
+  }
+
+  #add-box {
+    position:fixed;
+    left:15%;
+    top:17%;
+    overflow:visible;
+  }
+
+  #ticky-box {
+    position:fixed;
+    left:15%;
+    top:33%;
+    overflow:visible;
+  }
+
+  #viewlisting-container {
+      font-family: 'Montserrat', sans-serif;
+      color:white;
+      border:2px white solid;
+      margin:5%;
+      padding:5%;
+  }
+  #viewlisting-artist {
+      font-size:22px;
+      text-align:left;
+      font-weight:bold;
+      border-bottom: 2px white solid;
+      margin-bottom:1%;
+  }
+  #viewlisting-venue{
+      text-align:left;
+      font-size:15px;
+  }
+  #viewlisting-footer {
+    margin:15%;
+    text-align: center;
+  }
+  #lose-ticky>a{
+      color:red;
+  }
+  #lose-ticky{
+    margin:0 auto;
+    margin-top:50px;
+    border:2px solid white;
+    width:50%;
+    height:40px;
+    line-height:34px;
+  }
+
+@media only screen and (max-width: 600px) {
+    .artist-listing-name {
+        font-size:1.3em;
+    }
+    .listing {
+        margin-left:29%;
+        width:71%;
+      }
+      #add-box {
+          left:7%;
+      }
+
+      #ticky-box {
+        top:28%;
+        left:7%;
+    }
+}
+
+  .venue-listing-name {
+    font-size:1em;
+  }
+
+  #view-ticket-wrapper {
+    display:flex;
+    justify-content: flex-end;
+  }
+
+  #view-ticket-container {
+      color:white;
+      margin:5%;
+      width:61%;
+  }
+
+  .view-ticket-item {
+      font-size:15px;
+      border:3px white solid;
+      font-family: 'Montserrat', sans-serif;
+      text-align:center;
+      padding-top:13px;
+      margin-bottom:2%;
+  }
+
+  .view-ticket-item>p {
+    display:flex;
+    justify-content: center;
+  }
+
+  .left-side-floater {
+    position:fixed;
+    left:0%;
+    top:17%;
+    color:white;
+    width:30%;
+    padding:2%;
+    margin:5%;
+  }
+
+  #venue-date-upload-form {
+    display: flex;
+    width:80%;
+    margin: 0 auto;
+  }
+
+  .form-label {
+      text-align: center;
+      color: white;
+      font-size: 24px;
+  }
+
+  .ticket{
+    margin-top: 18px;
+    margin-bottom: -24px;
+  }
+
+
+
+

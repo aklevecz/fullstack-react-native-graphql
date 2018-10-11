@@ -1,0 +1,10 @@
+type Tickets {
+  id: String!
+  artist: String!
+  venue: String!
+  listingId: String!
+}
+
+type Query {
+  viewTickets: [Tickets!]!
+}

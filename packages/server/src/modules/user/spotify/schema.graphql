@@ -1,0 +1,7 @@
+type AccessResponse {
+  accessToken: String!
+}
+
+type Query {
+  refreshToken: AccessResponse!
+}
