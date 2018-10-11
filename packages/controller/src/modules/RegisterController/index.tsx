@@ -15,15 +15,27 @@ interface Props {
   ) => JSX.Element | null;
 }
 
+const meQuery = gql`
+  {
+    me {
+      id
+      email
+    }
+  }
+`;
+
 class C extends React.PureComponent<
   ChildMutateProps<Props, RegisterMutation, RegisterMutationVariables>
 > {
   submit = async (values: RegisterMutationVariables) => {
-    console.log(values);
+    console.log("REGISTER CONTROLLER");
     const {
       data: { register }
     } = await this.props.mutate({
-      variables: values
+      variables: values,
+      refetchQueries:[{
+        query:meQuery
+      }]
     });
     console.log("response: ", register);
 

@@ -1,18 +1,19 @@
 import * as React from "react";
 import { withFindListings, WithFindListings } from "@abb/controller";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 import * as d3 from 'd3';
 
 interface State{
   width: number,
 }
-class C extends React.PureComponent<WithFindListings, State> {
+class C extends React.PureComponent<RouteComponentProps<{}> & WithFindListings, State> {
   ref: SVGSVGElement;
   constructor(props:any) {
     super(props);
     this.state = {
       width:window.innerWidth,
     }
+    console.log(this.props.location.search);
   }
   updateDimensions(){
         this.setState({width:window.innerWidth});

@@ -29,6 +29,7 @@ class C extends React.PureComponent<ChildProps<{viewTickets:any,me:any}>> {
   render() {
     const {viewTickets, me} = this.props;
     console.log(this.props);
+    this.props.me.refetch();
     if (me.loading || viewTickets.loading){
       return <div style={{color:'white'}}>loading...</div>
     }      

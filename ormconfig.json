@@ -3,7 +3,8 @@
     "name": "production",
     "type": "postgres",
     "synchronize": true,
-    "logging": true
+    "logging": true,
+    "dropSchema": true
   },
   {
     "name": "development",
@@ -15,6 +16,7 @@
     "database": "grapqhl-ts-server-boilerplate",
     "synchronize": true,
     "logging": true,
+    "dropSchema": true,
     "entities": ["src/entity/**/*.ts"],
     "migrations": ["src/migration/**/*.ts"],
     "subscribers": ["src/subscriber/**/*.ts"],

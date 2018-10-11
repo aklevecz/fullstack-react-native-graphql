@@ -21,6 +21,15 @@ interface Props {
   ) => JSX.Element | null;
 }
 
+const meQuery = gql`
+  {
+    me {
+      id
+      email
+    }
+  }
+`;
+
 class C extends React.PureComponent<
   ChildMutateProps<
     WithApolloClient<Props>,
@@ -29,13 +38,16 @@ class C extends React.PureComponent<
   >
 > {
   submit = async (values: LoginMutationVariables) => {
-    console.log(values);
+    console.log("LOGIN CONTROLLER");
     const {
       data: {
         login: { errors, sessionId }
       }
     } = await this.props.mutate({
-      variables: values
+      variables: values,
+      refetchQueries:[{
+        query:meQuery
+      }]
     });
     console.log("response: ", errors, sessionId);
 

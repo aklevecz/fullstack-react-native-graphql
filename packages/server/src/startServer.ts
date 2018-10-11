@@ -190,7 +190,7 @@ export const startServer = async () => {
       if (req.sessionID && req.session){
         await redis.lpush(`${userSessionIdPrefix}${req.session.userId}`, req.sessionID);
       }
-      process.env.NODE_ENV === 'production' ? res.redirect(process.env.FRONTEND_HOST as string) : res.redirect('http://localhost:3000');
+      process.env.NODE_ENV === 'production' ? res.redirect(process.env.FRONTEND_HOST as string) : res.redirect('http://localhost:3000/me');
     }
   );
 
