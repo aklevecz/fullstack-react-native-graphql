@@ -14,6 +14,9 @@ const meQuery = gql`
 `;
 
 export class Header extends React.Component {
+    loginRedirect = (e:any) => {
+        window.location.href = process.env.REACT_APP_SERVER_URL+'auth/spotify';
+    }
     render(){
         return (
             <Query query={meQuery}>
@@ -52,14 +55,13 @@ export class Header extends React.Component {
                                         </g>
                                     </g>
                                     </Link>
-                                    <a href={process.env.REACT_APP_SERVER_URL+'auth/spotify'}>
-                                    <g id="RAPTOR_1_">
+                                    <g id="RAPTOR_1_" onClick={this.loginRedirect}>
                                         <path fill="#231F20" stroke="#FFFFFF" strokeMiterlimit="10" d="M44.9,20.5c0-7.6-6.2-13.8-13.8-13.8c-7.6,0-13.8,6.2-13.8,13.8
                                             c0,7.6,6.2,13.8,13.8,13.8C38.7,34.3,44.9,28.1,44.9,20.5z"/>
                                         <path fill="#FFFFFF" d="M40.8,18.6v-1.7l-6.1-1.7l-1.1,3.4L27,21.6L20.1,18l-0.3,0.8l6.8,5.9l2.9-0.4l1,1.7l-2,1.7
                                             c0.5,0.5,3.1,1.9,3.1,1.9l1.3-0.1L31,27.6l1.3-0.9l0.7-3l3.2-1.2L36,24.3l0.7,0.2l1.3-2.6l-2.3-1l0.8-2.5L40.8,18.6z"/>
                                     </g>
-                                    </a>
+
                                 </g>
                                 </svg>
                                     <div id="nav">
