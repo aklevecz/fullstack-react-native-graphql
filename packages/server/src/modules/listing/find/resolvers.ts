@@ -1,6 +1,6 @@
 import { ResolverMap } from "../../../types/graphql-utils";
 import { listingCacheKey, ticketCacheKey } from "../../../constants";
-//import { Ticket } from "../../../entity/Ticket";
+// import { Ticket } from "../../../entity/Ticket";
 
 export const resolvers: ResolverMap = {
   Listing: {
@@ -17,7 +17,7 @@ export const resolvers: ResolverMap = {
       }
       // changed this to the s3 bucket from server storage
       return `${s3}/${parent.pictureUrl}`;
-      //return `${url}/images/${parent.pictureUrl}`;
+      // return `${url}/images/${parent.pictureUrl}`;
 
     },
     owner: ({ userId }, _, { userLoader }) => userLoader.load(userId)
@@ -25,18 +25,31 @@ export const resolvers: ResolverMap = {
   Query: {
     findListings: async (_, __, {redis}) => {
       console.log('find listing');
+      // have this clear the cache sometimes?
       const listings =  (await redis.lrange(listingCacheKey, 0, -1)) || [];
       const tickets = (await redis.lrange(ticketCacheKey,0,-1)) || [];
 
+
+
       const t = tickets.map((d:string) => JSON.parse(d));
 
-      const ticketListings =  listings.map((x: string) => {
+
+      // there must be a better way to filter dates, but whatever...
+      const today = new Date();
+      today.setDate(today.getDate()-1);    
+      const ticketListingsAll =  listings.map((x: string) => {
           const y = JSON.parse(x);
-          const ts = t.filter((x:any) => x.lid === y.id).map((d:any) => d.tid)
-          return {...y, pictureUrl:JSON.stringify(ts)};
+          if (Date.parse(y.date.toString()) > today.valueOf()){
+            const ts = t.filter((xl:any) => xl.lid === y.id).map((d:any) => d.tid)
+            return {...y, pictureUrl:JSON.stringify(ts)};
+          }
+            return null;
         });
 
-      return ticketListings.sort(function(a:any,b:any){
+      const ticketListings = ticketListingsAll.filter((d: object) => d !== null);
+
+
+      return ticketListings.sort((a:any,b:any) => {
         const aDate = new Date(a.date);
         const bDate = new Date(b.date);
         return (aDate as any) - (bDate as any);

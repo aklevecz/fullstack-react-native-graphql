@@ -11,8 +11,7 @@ import * as express from "express";
 import { RedisPubSub } from "graphql-redis-subscriptions";
 
 import * as passport from 'passport';
-const SpotifyStrategy = require('passport-spotify').Strategy;
-
+import * as  SpotifyStrategy from 'passport-spotify';
 import { redis } from "./redis";
 import { createTypeormConn } from "./utils/createTypeormConn";
 import { confirmEmail } from "./routes/confirmEmail";
@@ -37,7 +36,7 @@ export const startServer = async () => {
   const schema = genSchema() as any;
   applyMiddleware(schema, middleware);
 
-  const pubsub = new RedisPubSub(process.env.NODE_ENV == 'production' ? {
+  const pubsub = new RedisPubSub(process.env.NODE_ENV === 'production' ? {
     connection: process.env.REDIS_URL as any
   } : {});
 
@@ -103,9 +102,8 @@ export const startServer = async () => {
     await createTypeormConn();
     // await conn.runMigrations();
   }
-
   passport.use(
-    new SpotifyStrategy(
+    new SpotifyStrategy.Strategy(
       {
         clientID: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
@@ -114,13 +112,13 @@ export const startServer = async () => {
         passReqToCallback: true,
         scope: ['user-read-email', 'user-read-private'],
       },
-      async function (req:any, accessToken:any, refreshToken:any, expires_in:any, profile:any, done:any) {
+      async (req:any, accessToken:any, refreshToken:any, expiresIn:any, profile:any, done:any) => {
         // User.findOrCreate({ spotifyId: profile.id }, function(err, user) {
         //   return done(err, user);
         // });
         console.log(accessToken);
         console.log(refreshToken);
-        console.log(expires_in);
+        console.log(expiresIn);
         console.log(profile._json);
         console.log(req.session.userId);
         const {id, display_name,email} = profile._json;
@@ -128,7 +126,7 @@ export const startServer = async () => {
         let user = await User.findOne({where:{email}});
         if (!user){
           console.log('no email match');
-          const user = await User.create({
+                user = await User.create({
                 email,
                 password: email + refreshToken,
                 spotifyId: id,
@@ -170,18 +168,17 @@ export const startServer = async () => {
     )
   );
   server.express.use(passport.initialize());
-  //server.express.use(passport.session());
-  server.express.get('/auth/spotify', passport.authenticate('spotify'), function(req, res) {
-    req
-    res
+  // server.express.use(passport.session());
+  server.express.get('/auth/spotify', passport.authenticate('spotify'), (req, res) => {
+    console.log(req);
+    console.log(res);
     // The request will be redirected to spotify for authentication, so this
     // function will not be called.
   });  
-  
   server.express.get(
     "/auth/spotify/callback",
     passport.authenticate("spotify", {session:false}),
-    async function(req,res){
+    async (req,res) => {
       console.log('callback420');
       if (req.session){
         console.log(req.session.spotifyAccessToken);
@@ -190,7 +187,7 @@ export const startServer = async () => {
       if (req.sessionID && req.session){
         await redis.lpush(`${userSessionIdPrefix}${req.session.userId}`, req.sessionID);
       }
-      process.env.NODE_ENV === 'production' ? res.redirect(process.env.FRONTEND_HOST as string) : res.redirect('http://localhost:3000/me');
+      process.env.NODE_ENV === 'production' ? res.redirect(process.env.FRONTEND_HOST as string) : res.redirect('http://localhost:3000/');
     }
   );
 
@@ -198,11 +195,20 @@ export const startServer = async () => {
   await redis.del(listingCacheKey);
   await redis.del(ticketCacheKey);
   // fill cache
+
+  // mama mia date madness
+  const today = new Date();
+  today.setDate(today.getDate()-1);
+
   const listings = await Listing.find();
-  let listingStrings = listings.map(x => JSON.stringify(x));
+
+  // filter out old dates
+  const currentListings = listings.filter((d) => today.valueOf() < Date.parse(d.date.toString()))
+
+  const listingStrings = currentListings.map(x => JSON.stringify(x));
 
   const tickets = await Ticket.find({where:{finderId:finderDefaultId}});
-  let ticketStrings = tickets.map(x => JSON.stringify({tid:x.id,lid:x.listingId}));
+  const ticketStrings = tickets.map(x => JSON.stringify({tid:x.id,lid:x.listingId}));
 
   // shitty logic for empty listing table
   if (listingStrings.length>0){

@@ -63,7 +63,7 @@ export class ViewListingConnector extends React.PureComponent<
                     <Link to={`/listing/${listingId}/chat`}>chat</Link>
                     </div>
                     */}
-                    <div id="lose-ticky"><Link to={`/listing/${listingId}/edit`}>lose ur ticky</Link></div>
+                    <Link to={`/listing/${listingId}/edit`}><div id="lose-ticky">Lose ür Ticky</div></Link>
                     </div>
                 </div>
                 )

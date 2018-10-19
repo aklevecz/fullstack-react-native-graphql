@@ -20,8 +20,12 @@ class C extends React.PureComponent<
         }
       } = this.props;
       const {picture} = values;
-      await this.props.createTicket({ticket:picture ,listingId});
+      const resp = await this.props.createTicket({ticket:picture ,listingId});
       setSubmitting(false);
+
+      if ((resp as any).data.createTicket){
+        this.props.history.push('/listings');
+      }
   };
 
   render() {

@@ -17,12 +17,14 @@ import { EditListingConnector } from "../modules/listing/edit/EditListingConnect
 import { Header } from "../modules/ui/Header";
 import { Me } from "../modules/me/Me";
 import { GrabTicketConnector } from "../modules/listing/grab/GrabTicketConnector";
+import { Home } from "../modules/home/Home";
 
 export const Routes = () => (
   <BrowserRouter>
   <div>
     <Header />
     <Switch>
+      <Route exact={true} path="/" component={Home} />
       <Route exact={true} path="/me" component={Me} />
       <Route exact={true} path="/register" component={RegisterConnector} />
       <Route exact={true} path="/login" component={LoginConnector} />

@@ -8,7 +8,8 @@ class C extends React.PureComponent<
   }> & WithGrabTicket
 > {
     state = {
-        ticketId:''
+        ticketId:'',
+        fileType: ''
     }
 
     async componentWillMount(){
@@ -21,31 +22,32 @@ class C extends React.PureComponent<
 
         if((resp as any).data.grabTicket) {
             const ticketId = (resp as any).data.grabTicket.ticketId
-            this.setState({ticketId});
+            const fileType = ticketId.split('.')[1];
+            this.setState({ticketId,fileType});
         } 
 
     }
-//   submit = async (
-//     values: ListingFormValues,
-//     { setSubmitting }: FormikActions<ListingFormValues>
-//   ) => {
-//     const {
-//         match: {
-//           params: { listingId }
-//         }
-//       } = this.props;
-//       const {picture} = values;
-//       await this.props.createTicket({ticket:picture ,listingId});
-//       setSubmitting(false);
-//   };
 
   render() {
     console.log(this.state);
     return (
-        <div style={{color:'white'}}>
-       {this.state.ticketId ?
-         <img src={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} />
-        :<div>loading...</div>}
+        <div>
+        <h2 style={{padding:"1%"}}>HERE IS UR TICKY</h2>
+        {this.state.ticketId && 
+        <div id="ticket-grab-container">
+            {this.state.fileType==="pdf" ?
+            <object data={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} type="application/pdf" width="100%" height="500">
+            <p>Your web browser doesn't have a PDF plugin.
+            Instead you can <a href={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`}>click here to
+            download the PDF file.</a></p>
+                </object>
+                // <embed type="application/pdf" id="ticket-grab" src={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} />
+                :
+                <img id="ticket-grab" src={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} />
+            }
+            
+        </div>
+        }
         </div>
         )   
     }

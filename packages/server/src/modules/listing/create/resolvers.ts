@@ -25,19 +25,24 @@ export const resolvers: ResolverMap = {
         signatureVersion: 'v4',
         region: 'us-west-1',
       });      
-      fs.readFile('./images/'+pictureUrl, function(err, fileData) {
+      
+      const ContentType = pictureUrl.split('.')[1] === "pdf" ? "application/pdf" : "binary";
+
+      fs.readFile('./images/'+pictureUrl, (err, fileData) => {
         console.log(err);
-        let params = {
+        const params = {
           Bucket:'last-minute-ticket',
           ACL: 'public-read',
           Key: pictureUrl,
           Body: fileData,
-          ContentType: 'binary'
+          ContentType
         };
 
-        s3.putObject( params, ( error, data ) => {
-                if( error ) console.log( error );
-                console.log(data);
+        s3.putObject( params, (error, s3data) => {
+                if( error ){
+                  console.log( error );
+                } 
+                console.log(s3data);
            });
       });
       

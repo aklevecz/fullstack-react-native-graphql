@@ -9,13 +9,14 @@ interface UploadPreviewProps {
 }
 const UploadPreview: React.SFC<UploadPreviewProps> = ({pUrl, fileType}) => {
   if (fileType==="application/pdf"){
-    return <embed src={pUrl} width="600" height="500" />
+    return <embed src={pUrl} type="application/pdf" width="600" height="500" />
   }
   return <img
     id="dropzone-img"
     src={pUrl}
     style={{
     maxHeight: 200,
+    maxWidth:200,
     borderRadius:"0%",
     marginLeft:"0%",
     padding:"0%",

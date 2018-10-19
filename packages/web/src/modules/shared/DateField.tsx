@@ -26,6 +26,6 @@ export class DateField extends React.PureComponent<FieldProps<any>, State>{
     }
 
     render(){
-        return <div style={{margin:'0 auto',width:"50%"}}><DatePicker className="date-field" onChange={this.handleDateChange} selected={this.state.startDate}/></div>
+        return <div className="date-field-wrapper"><DatePicker className="date-field" onChange={this.handleDateChange} selected={this.state.startDate}/></div>
     }
 }

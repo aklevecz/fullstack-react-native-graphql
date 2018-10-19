@@ -40,9 +40,9 @@ export class CreateTicketForm extends React.PureComponent<Props, State> {
       >
         {({ isSubmitting, values }) =>
           console.log(values) || (
-            <Form style={{ display: "flex" }}>
-              <div style={{ width: "100%", margin: "auto" }}>
-              <div style={{marginLeft:"33%"}}>
+            <Form style={{ display: "flex",justifyContent:"center" }}>
+              <div style={{ width: "70%" }}>
+              <div>
                 <CreateTicket/>
               </div>
               
@@ -55,11 +55,11 @@ export class CreateTicketForm extends React.PureComponent<Props, State> {
                   >
                       <div>
                         <button
-                          style={{color:"white",marginTop:"50%",border:"3px white solid"}}
+                          style={{fontWeight:"bold",border:"2px red solid",color:"black",backgroundColor:"white",width:"200px",marginTop:"20%"}}
                           type="submit"
                           disabled={isSubmitting}
                         >
-                          upload
+                          UPLOAD
                         </button>
                       </div>
                   </div>

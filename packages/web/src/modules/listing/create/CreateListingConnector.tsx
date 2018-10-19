@@ -17,7 +17,8 @@ class C extends React.PureComponent<
     setSubmitting(false);
     console.log(resp);
     if ((resp as any).data.createListing){
-      this.props.history.push('/listing/'+(resp as any).data.createListing);
+      this.props.history.push('/listings');
+      // this.props.history.push('/listing/'+(resp as any).data.createListing);
     }
   };
 

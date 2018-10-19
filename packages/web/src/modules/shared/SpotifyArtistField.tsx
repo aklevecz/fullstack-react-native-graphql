@@ -13,6 +13,7 @@ const customStyles = {
       marginRight           : '-50%',
       transform             : 'translate(-50%, -50%)',
       width                 : '70%',
+      maxWidth              : '350px'
     }
   };
 
@@ -41,7 +42,7 @@ export class SpotifyArtistField extends React.PureComponent<FieldProps<any> & Pr
             accessToken: (this.props as any).accessToken,
             results:[],
             modalIsOpen: false,
-            header:"Thank you for deciding to give away a ticket! :D Search for your artist ((they must be on Spotify))",
+            header:"Search for your artist, they must be on Spotify.",
             headerColor:"white",
         };
         this.openModal = this.openModal.bind(this);
@@ -68,7 +69,13 @@ export class SpotifyArtistField extends React.PureComponent<FieldProps<any> & Pr
         }
     }
 
+    onKeyPress = (e:any) => {
+        if (e.key==="Enter"){
+            this.search();
+        }
+    }
     onChange = (e:any) => {
+        console.log(e.keyCode);
         this.setState({artistName:e.target.value});    
     }
 
@@ -99,7 +106,6 @@ export class SpotifyArtistField extends React.PureComponent<FieldProps<any> & Pr
     }
 
     render(){
-        console.log(this.props);
         return (
         <div>
             <Modal
@@ -112,8 +118,8 @@ export class SpotifyArtistField extends React.PureComponent<FieldProps<any> & Pr
         <div>
             <div style={{textAlign:"center",fontWeight:"bold",fontSize:'2em'}}>{this.state.artistName}?</div> 
             <div id="confirm-cancel-container">
-                <button style={{color:"white"}} id="confirm" onClick={this.closeModal}>CONFIRM</button>   
-                <button style={{color:"white"}} id="cancel" onClick={this.closeModal}>CANCEL</button>
+                <button id="cancel" onClick={this.closeModal}>CANCEL</button>
+                <button id="confirm" onClick={this.closeModal}>CONFIRM</button>   
             </div>
           </div>      
         </Modal>
@@ -123,6 +129,7 @@ export class SpotifyArtistField extends React.PureComponent<FieldProps<any> & Pr
                             color:"white",
                             border:"2px white solid",
                             }}
+                   onKeyPress={this.onKeyPress}
                    onChange={this.onChange}/>
                 <button style={{width:"32%",color:"white",marginTop:"10px",
                             height:"39px",border:"2px white solid"}} type="button" onClick={this.search}>

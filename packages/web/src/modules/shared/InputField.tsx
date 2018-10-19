@@ -25,9 +25,10 @@ export const InputField: React.SFC<
     <FormItem
       label={label}
       help={errorMsg}
-      validateStatus={errorMsg ? "error" : undefined}    >
+      validateStatus={errorMsg ? "error" : undefined} 
+      style={{width:"70%", margin:"0 auto"}}   >
       <Comp
-            style={{color:"white",backgroundColor:"black",border:"2px white solid",borderRadius:"0px"}}
+            style={{color:"white",backgroundColor:"black",border:"2px white solid",borderRadius:"0px", marginBottom:"20px"}}
         {...field}
         {...props}
         onChange={

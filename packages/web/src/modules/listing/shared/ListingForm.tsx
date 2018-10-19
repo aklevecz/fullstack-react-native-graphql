@@ -49,8 +49,6 @@ export class ListingForm extends React.PureComponent<Props, State> {
   render() {
     const { submit, initialValues = defaultListingFormValues } = this.props;
     return (
-      <div>
-      {this.state.page===1 && <h1>Event info & ticket</h1>}
       <Formik<{}, ListingFormValues>
         initialValues={initialValues}
         onSubmit={ async ({...values},{...actions}) => {
@@ -107,7 +105,6 @@ export class ListingForm extends React.PureComponent<Props, State> {
         }
         }
       </Formik>
-      </div>
    );
   }
 }

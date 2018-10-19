@@ -18,6 +18,22 @@ export const createTicketMutation = gql`
   }
 `;
 
+const findListingsQuery = gql`
+  query FindListingsQuery {
+    findListings {
+      id
+      artist
+      venue
+      pictureUrl
+      date
+      owner {
+        id
+        email
+      }
+    }
+  }
+`;
+
 export interface WithCreateTicket {
   createTicket: (variables: CreateTicketMutationVariables) => void;
 }
@@ -35,7 +51,10 @@ export const withCreateTicket = graphql<
       }
 
       const response = await mutate({
-        variables
+        variables,
+        refetchQueries:[{
+          query:findListingsQuery
+        }]
       });
       
       return response;

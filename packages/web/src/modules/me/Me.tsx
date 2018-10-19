@@ -36,10 +36,6 @@ class C extends React.PureComponent<ChildProps<{viewTickets:any,me:any}>> {
     console.log(me.me);
           return (
             <div>
-            <div className="left-side-floater">
-            <p>these r ur tickies -></p>
-             <p> {me.me.spotifyName}</p>
-            </div>
             <div id="view-ticket-wrapper">
               <div id="view-ticket-container">
                 {viewTickets.viewTickets.map((t:any) => {

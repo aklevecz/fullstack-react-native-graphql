@@ -5,7 +5,7 @@
 }
 /* home page */
 body{
-    background-color:black;
+    background-color:#191919;
 }
 
 h1,h2 {
@@ -47,15 +47,15 @@ a {
   .listing {
     font-family: 'Montserrat', sans-serif;
     padding:20px;
-    background-color:black;
+    /* background-color:black; */
     color:white;
     width:60%;
     margin:0 auto;
     margin-top:10px;
-    text-align:left;
-    margin-left:39%;
-    /* border-right:2px #f34f4f solid; */
-    /* border-bottom:2px #f34f4f solid; */
+    text-align:center;
+    font-size:.9em;
+    /* border:2px #f34f4f solid; */
+    /* border-bottom: #f34f4f solid; */
 
   }
 
@@ -82,7 +82,9 @@ a {
       font-family: 'Montserrat', sans-serif;
       color:white;
       border:2px white solid;
-      margin:5%;
+      width:70%;
+      margin-left:17%;
+      margin-top:5%;
       padding:5%;
   }
   #viewlisting-artist {
@@ -101,34 +103,21 @@ a {
     text-align: center;
   }
   #lose-ticky>a{
-      color:red;
+      color:black;
+      font-weight: 1px;
   }
   #lose-ticky{
     margin:0 auto;
     margin-top:50px;
-    border:2px solid white;
-    width:50%;
-    height:40px;
-    line-height:34px;
+    border:2px solid red;
+    background-color:white;
+    color:black;
+    width:100%;
+    height:70px;
+    line-height:67px;
+    max-width:300px;
   }
 
-@media only screen and (max-width: 600px) {
-    .artist-listing-name {
-        font-size:1.3em;
-    }
-    .listing {
-        margin-left:29%;
-        width:71%;
-      }
-      #add-box {
-          left:7%;
-      }
-
-      #ticky-box {
-        top:28%;
-        left:7%;
-    }
-}
 
   .venue-listing-name {
     font-size:1em;
@@ -175,16 +164,55 @@ a {
     margin: 0 auto;
   }
 
-  .form-label {
-      text-align: center;
-      color: white;
-      font-size: 24px;
-  }
+
 
   .ticket{
     margin-top: 18px;
     margin-bottom: -24px;
   }
+
+  #nav {
+      color:white;
+      position:fixed;
+      width:15%;
+      left:-0.6%;
+  }
+  #ticket-grab-container {
+      color:white;
+      display: flex;
+      justify-content: center;
+      margin-top:5%;
+      margin-left:5%;
+  }
+  #ticket-grab{
+      border:2px white solid;
+      max-width:310px;
+	  max-height:310px;
+  }
+
+@media only screen and (min-width: 600px) {
+    #ticket-grab{
+        max-width:500px;
+        max-height:500px;
+    }
+
+    .artist-listing-name {
+        font-size:2.3em;
+    }
+    #viewlisting-artist {
+        font-size:2.3em;
+    }
+    .listing {
+        width:50%;
+        font-size:2em;
+      }
+    #nav{
+        width:15%;
+    }
+    #ticket-grab-container {
+        margin-left:0%;
+    }
+}
 
 
 
