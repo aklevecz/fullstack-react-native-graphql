@@ -1,7 +1,7 @@
 @import "~antd/dist/antd.css";
 @font-face{
-    font-family:PhenixAmerican;
-    src:local('./FONTS/PhenixAmerican.ttf');
+    font-family:Montserrat-Medium;
+    src:local('./src/fonts/Montserrat-Medium.ttf');
 }
 /* home page */
 body{
