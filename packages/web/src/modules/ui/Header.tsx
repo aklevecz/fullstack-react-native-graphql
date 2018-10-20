@@ -23,10 +23,10 @@ export class Header extends React.Component {
                 {({ data, refetch }) => {
                     refetch();
                         return (
-                            <div>
+                            <div style={{marginTop:"10px"}}>
                             <svg viewBox="0 0 411 40">
                                 <g id="HEADER_1_">
-                                    <rect id="TOPBG_1_" fill="#F55356" width="411" height="40"/>
+                                    {/* <rect id="TOPBG_1_" fill="#F55356" width="411" height="40"/> */}
                                     <Link to="/">
                                     <g>
                                         <g>
