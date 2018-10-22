@@ -37,6 +37,7 @@ class C extends React.PureComponent<RouteComponentProps<{}> & WithFindListings, 
         {loading && <div>...loading</div>}
         {listings.map(l => {
           const date = new Date(l.date).toString().split(' ');
+          console.log(date);
           const dateString = date[1]+' '+date[2];
           return (
           <div

@@ -29,14 +29,14 @@ export const resolvers: ResolverMap = {
       const listings =  (await redis.lrange(listingCacheKey, 0, -1)) || [];
       const tickets = (await redis.lrange(ticketCacheKey,0,-1)) || [];
 
-
+      console.log(listings);
 
       const t = tickets.map((d:string) => JSON.parse(d));
 
 
       // there must be a better way to filter dates, but whatever...
       const today = new Date();
-      today.setDate(today.getDate()-1);    
+      today.setDate(today.getDate()-2);    
       const ticketListingsAll =  listings.map((x: string) => {
           const y = JSON.parse(x);
           if (Date.parse(y.date.toString()) > today.valueOf()){

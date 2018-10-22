@@ -190,6 +190,11 @@ export const startServer = async () => {
       process.env.NODE_ENV === 'production' ? res.redirect(process.env.FRONTEND_HOST as string) : res.redirect('http://localhost:3000/');
     }
   );
+  console.log('get');
+  server.express.get("/listings", (req,res) => {
+    console.log("LSTINGS");
+    console.log(res,req);
+  })
 
   // clear the cache
   await redis.del(listingCacheKey);
@@ -198,7 +203,7 @@ export const startServer = async () => {
 
   // mama mia date madness
   const today = new Date();
-  today.setDate(today.getDate()-1);
+  today.setDate(today.getDate()-2);
 
   const listings = await Listing.find();
 
