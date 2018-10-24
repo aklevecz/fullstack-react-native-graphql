@@ -205,6 +205,8 @@ export const startServer = async () => {
   const today = new Date();
   today.setDate(today.getDate()-2);
 
+  console.log(today);
+
   const listings = await Listing.find();
 
   // filter out old dates

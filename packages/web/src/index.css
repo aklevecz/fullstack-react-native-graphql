@@ -31,6 +31,19 @@ a {
     100% { box-shadow: 0 0 100px #ed516d; }
   } */
 
+  @keyframes glowing-path {
+    0% { fill: #4fff04; }
+    20% { fill: #f38b9e; }
+    40% { fill: #e739f3; }
+    60% { fill: #f38b9e; }
+    80% { fill: #f38b9e; }
+    100% { fill: #cffc06; }
+  }
+
+  .glow-path>path {
+    animation: glowing-path 5000ms infinite;
+  }
+
   @keyframes glowing {
     0% { color: #fdfcfc; }
     20% { color: #f38b9e; }
@@ -49,7 +62,7 @@ a {
     padding:20px;
     /* background-color:black; */
     color:white;
-    width:60%;
+    width:70%;
     margin:0 auto;
     margin-top:10px;
     text-align:center;
@@ -60,7 +73,7 @@ a {
   }
 
   .artist-listing-name {
-      font-size:2em;
+      font-size:1.6em;
       font-weight:bold;
   }
 
