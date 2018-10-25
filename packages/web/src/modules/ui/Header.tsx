@@ -13,11 +13,15 @@ const meQuery = gql`
   }
 `;
 
-export class Header extends React.Component {
-    loginRedirect = (e:any) => {
-        window.location.href = process.env.REACT_APP_SERVER_URL+'auth/spotify';
+export class Header extends React.PureComponent {
+    loginRedirect = (data:any) => {
+        if (!data.me){
+            return window.location.href = process.env.REACT_APP_SERVER_URL+'auth/spotify';
+        }
+        return window.location.pathname = "me";
     }
     render(){
+        console.log(process.env);
         return (
             <Query query={meQuery}>
                 {({ data, refetch }) => {
@@ -26,7 +30,6 @@ export class Header extends React.Component {
                             <div style={{marginTop:"10px"}}>
                             <svg viewBox="0 0 411 40">
                                 <g id="HEADER_1_">
-                                    {/* <rect id="TOPBG_1_" fill="#F55356" width="411" height="40"/> */}
                                     <Link to="/">
                                     <g>
                                         <g>
@@ -55,10 +58,10 @@ export class Header extends React.Component {
                                         </g>
                                     </g>
                                     </Link>
-                                    <g id="RAPTOR_1_" onClick={this.loginRedirect}>
+                                    <g id="RAPTOR_1_" onClick={()=> this.loginRedirect(data)}>
                                         <path fill="#231F20" stroke="#FFFFFF" strokeMiterlimit="10" d="M44.9,20.5c0-7.6-6.2-13.8-13.8-13.8c-7.6,0-13.8,6.2-13.8,13.8
                                             c0,7.6,6.2,13.8,13.8,13.8C38.7,34.3,44.9,28.1,44.9,20.5z"/>
-                                        <path fill="#FFFFFF" d="M40.8,18.6v-1.7l-6.1-1.7l-1.1,3.4L27,21.6L20.1,18l-0.3,0.8l6.8,5.9l2.9-0.4l1,1.7l-2,1.7
+                                        <path fill={data && data.me ? "#57fb57" : "#ff3939"} d="M40.8,18.6v-1.7l-6.1-1.7l-1.1,3.4L27,21.6L20.1,18l-0.3,0.8l6.8,5.9l2.9-0.4l1,1.7l-2,1.7
                                             c0.5,0.5,3.1,1.9,3.1,1.9l1.3-0.1L31,27.6l1.3-0.9l0.7-3l3.2-1.2L36,24.3l0.7,0.2l1.3-2.6l-2.3-1l0.8-2.5L40.8,18.6z"/>
                                     </g>
 

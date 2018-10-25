@@ -11,7 +11,7 @@
     "host": "localhost",
     "port": 5432,
     "username": "postgres",
-    "password": "Phytk7wh1",
+    "password": "postgres",
     "database": "grapqhl-ts-server-boilerplate",
     "synchronize": true,
     "logging": true,

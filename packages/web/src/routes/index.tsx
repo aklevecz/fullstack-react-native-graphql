@@ -2,8 +2,6 @@ import * as React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { AuthRoute } from "@abb/controller";
 
-import { RegisterConnector } from "../modules/register/RegisterConnector";
-import { LoginConnector } from "../modules/login/LoginConnector";
 import { ForgotPasswordConnector } from "../modules/forgotPassword/ForgotPasswordConnector";
 import { ChangePasswordConnector } from "../modules/changePassword/ChangePasswordConnector";
 import { TextPage } from "../modules/TextPage";
@@ -18,6 +16,7 @@ import { Header } from "../modules/ui/Header";
 import { Me } from "../modules/me/Me";
 import { GrabTicketConnector } from "../modules/listing/grab/GrabTicketConnector";
 import { Home } from "../modules/home/Home";
+import { LoginSpotify } from "../modules/login/LoginSpotify";
 
 export const Routes = () => (
   <BrowserRouter>
@@ -26,8 +25,8 @@ export const Routes = () => (
     <Switch>
       <Route exact={true} path="/" component={Home} />
       <Route exact={true} path="/me" component={Me} />
-      <Route exact={true} path="/register" component={RegisterConnector} />
-      <Route exact={true} path="/login" component={LoginConnector} />
+      <Route exact={true} path="/register" component={LoginSpotify} />
+      <Route exact={true} path="/login" component={LoginSpotify} />
       <Route
         exact={true}
         path="/forgot-password"

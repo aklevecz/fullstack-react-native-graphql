@@ -37,7 +37,18 @@ class C extends React.PureComponent<ChildProps<{viewTickets:any,me:any}>> {
           return (
             <div>
             <div id="view-ticket-wrapper">
+            <div id="profile-container">
+            <div id="profile-card"> 
+              <div>{me.me.spotifyName}</div>
+              <div>{me.me.email}</div>
+
+              <Link to="/logout"><div style={{color:"red",margin:"33px"}}>LOGOUT</div></Link>
+            </div>
+
+            </div>
               <div id="view-ticket-container">
+              <div id="ur-ticky-header"> ~THESE ARE ÜR TICKIES~ </div>
+
                 {viewTickets.viewTickets.map((t:any) => {
                   return <Link to={`/listing/${t.listingId}/grab`}                            
                                 key={t.id}>

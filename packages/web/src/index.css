@@ -134,13 +134,20 @@ a {
   }
 
   #view-ticket-wrapper {
-    display:flex;
-    justify-content: flex-end;
+    display:block;
   }
+
+  #profile-container {
+    color:white;
+    margin-left:18%;
+    width:61%;
+    text-align:left;
+}
 
   #view-ticket-container {
       color:white;
       margin:5%;
+      margin-left:18%;
       width:61%;
   }
 
@@ -153,9 +160,25 @@ a {
       margin-bottom:2%;
   }
 
+  #profile-card {
+    font-size:15px;
+    border:3px white solid;
+    font-family: 'Montserrat', sans-serif;
+    text-align:center;
+    padding:13px;
+    height:100%;
+}
+
   .view-ticket-item>p {
     display:flex;
     justify-content: center;
+  }
+
+  #ur-ticky-header {
+    color: white;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size:16px;
   }
 
   .left-side-floater {
@@ -200,6 +223,17 @@ a {
   }
 
 @media only screen and (min-width: 600px) {
+    #view-ticket-wrapper {
+        display:flex;
+        justify-content: center;
+      }
+
+      #view-ticket-container {
+        color:white;
+        margin:5%;
+        width:61%;
+    }
+
     #ticket-grab{
         max-width:500px;
         max-height:500px;
