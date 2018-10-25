@@ -18,7 +18,8 @@ export const resolvers: ResolverMap = {
         return {ticketId:cheater.filename};
       }
 
-      let ticketQB = await getConnection()
+      // this is built to get a ticket from a listing that could have more than one ticket
+      const ticketQB = await getConnection()
       .getRepository(Ticket)
       .createQueryBuilder("t")  
       .andWhere("t.listingId = :listingId",{listingId})    
@@ -41,8 +42,13 @@ export const resolvers: ResolverMap = {
         console.log(await redis.lrange(ticketCacheKey, 0, -1));
       }
 
-      
-      return {ticketId:availTick[0].filename};
+
+      // checking if the ticket actually was taken by the person
+      const theTicket = await Ticket.findOne({where:{listingId,finderId:session.userId}});
+      if (theTicket){
+        return {ticketId:availTick[0].filename};
+      }
+        return {ticketId:"gone"};
     }
   }
 };
