@@ -36,7 +36,7 @@ class C extends React.PureComponent<
         {this.state.ticketId && 
         <div id="ticket-grab-container">
             {this.state.fileType==="pdf" ?
-            <object data={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} type="application/pdf" width="100%" height="500">
+            <object data={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} type="application/pdf" width="80%" height="800">
             <p>Your web browser doesn't have a PDF plugin.
             Instead you can <a href={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`}>click here to
             download the PDF file.</a></p>
