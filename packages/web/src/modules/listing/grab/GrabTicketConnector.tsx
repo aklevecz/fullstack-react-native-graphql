@@ -9,7 +9,8 @@ class C extends React.PureComponent<
 > {
     state = {
         ticketId:'',
-        fileType: ''
+        fileType: '',
+        height: window.innerHeight
     }
 
     async componentWillMount(){
@@ -31,12 +32,12 @@ class C extends React.PureComponent<
   render() {
     console.log(this.state);
     return (
-        <div>
+        <div style={{height:this.state.height}}>
         <h2 style={{padding:"1%"}}>HERE IS UR TICKY</h2>
         {this.state.ticketId && 
-        <div id="ticket-grab-container">
+        <div id="ticket-grab-container" style={{height:"100%"}}>
             {this.state.fileType==="pdf" ?
-            <object data={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} type="application/pdf" width="80%" height="800">
+            <object data={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} type="application/pdf" width="100%" height="100%">
             <p>Your web browser doesn't have a PDF plugin.
             Instead you can <a href={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`}>click here to
             download the PDF file.</a></p>
