@@ -21,7 +21,7 @@ import { LoginSpotify } from "../modules/login/LoginSpotify";
 export const Routes = () => (
   <BrowserRouter>
   <div>
-    <Header />
+  <Route component={Header} />
     <Switch>
       <Route exact={true} path="/" component={Home} />
       <Route exact={true} path="/me" component={Me} />
@@ -41,7 +41,7 @@ export const Routes = () => (
       <Route path="/listings"  exact={true} component={FindListingsConnector} />
       <Route path="/logout" component={Logout} />
       <Route exact={true} path="/listing/:listingId" component={ViewListingConnector} />
-      <Route path="/listing/:listingId/grab" component={GrabTicketConnector}/>
+      <AuthRoute path="/listing/:listingId/grab" component={GrabTicketConnector}/>
       <Route path="/listing/:listingId/chat" component={MessageConnector}/>
       <Route path="/listing/:listingId/edit" component={EditListingConnector}/>
       <AuthRoute path="/create-listing" component={CreateListingConnector} />

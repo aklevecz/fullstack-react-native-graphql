@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 const meQuery = gql`
   {
@@ -13,12 +13,12 @@ const meQuery = gql`
   }
 `;
 
-export class Header extends React.PureComponent {
+export class Header extends React.PureComponent<RouteComponentProps<{}>> {
     loginRedirect = (data:any) => {
         if (!data.me){
             return window.location.href = process.env.REACT_APP_SERVER_URL+'auth/spotify';
         }
-        return window.location.pathname = "me";
+        return this.props.history.push('/me');
     }
     render(){
         console.log(process.env);
