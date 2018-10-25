@@ -3,9 +3,8 @@
     "name": "production",
     "type": "postgres",
     "synchronize": true,
-    "logging": true,
-    "dropSchema": true
-  },
+    "logging": true
+    },
   {
     "name": "development",
     "type": "postgres",
