@@ -11,7 +11,6 @@ export const resolvers: ResolverMap = {
 
       // should probably reorg this, it assumes there can be multiple tickets, though perhaps all these checks function
       console.log('grab');
-      console.log(session);
       const cheater = await Ticket.findOne({where:{listingId,finderId:session.userId}});
 
       console.log(cheater);
@@ -25,9 +24,13 @@ export const resolvers: ResolverMap = {
       .createQueryBuilder("t")  
       .andWhere("t.listingId = :listingId",{listingId})    
       .andWhere("t.finderId = :finderDefaultId",{finderDefaultId});
-   
+      
+      // this is breaking when this query returns nothing and the finderId is attempted to be set
       const availTick = await ticketQB.take(1).getMany();
-      // if (session.userId && availTick[0].finderId!==session.userId){
+      console.log(availTick);
+      if (!availTick) {
+        return {ticketId:"gone"};
+      }
       if (session.userId){
         availTick[0].finderId = session.userId;
       }
