@@ -22,7 +22,7 @@ class C extends React.PureComponent<
         const resp = await this.props.grabTicket({listingId});
 
         if((resp as any).data.grabTicket) {
-
+            console.log((resp as any).data.grabTicket.ticketId)
             if ((resp as any).data.grabTicket.ticketId==="gone"){
                 alert("sorry! someone grabbed this right before you! oh gosh!")
                 this.props.history.push("/listings")
