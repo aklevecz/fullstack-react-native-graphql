@@ -7,7 +7,7 @@ export const resolvers: ResolverMap = {
   Mutation: {
     grabTicket: async (_, { listingId }, { session,redis }) => {
       await isAuthenticated(session);
-
+      await setTimeout(()=>{console.log('boop')}, Math.random()*1000);
       const availTicket = await Ticket.findOne({where:{listingId, finderId:finderDefaultId}});
       if (session.userId && availTicket){
         availTicket.finderId = session.userId;
@@ -27,6 +27,7 @@ export const resolvers: ResolverMap = {
         return {ticketId:"gone"};
       }
       // checking if there is actually a ticket that belngs to the user
+      await setTimeout(()=>{console.log('boop')}, Math.random()*1000);
       const theTicket = await Ticket.findOne({where:{listingId,finderId:session.userId}});
       console.log('THE TICKET RECHECK', theTicket);
       if (theTicket){
