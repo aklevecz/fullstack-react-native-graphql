@@ -28,7 +28,8 @@ export const resolvers: ResolverMap = {
       // this is breaking when this query returns nothing and the finderId is attempted to be set
       const availTick = await ticketQB.take(1).getMany();
       console.log(availTick);
-      if (!availTick) {
+      if (availTick.length===0) {
+        console.log('whart')
         return {ticketId:"gone"};
       }
       if (session.userId){
