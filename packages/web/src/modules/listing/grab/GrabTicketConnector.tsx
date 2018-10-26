@@ -22,6 +22,11 @@ class C extends React.PureComponent<
         const resp = await this.props.grabTicket({listingId});
 
         if((resp as any).data.grabTicket) {
+
+            if ((resp as any).data.grabTicket.ticketId==="gone"){
+                alert("sorry! someone grabbed this right before you! oh gosh!")
+                this.props.history.push("/listings")
+            }
             const ticketId = (resp as any).data.grabTicket.ticketId
             const fileType = ticketId.split('.')[1];
             this.setState({ticketId,fileType});

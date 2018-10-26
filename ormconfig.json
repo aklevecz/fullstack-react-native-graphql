@@ -3,6 +3,7 @@
     "name": "production",
     "type": "postgres",
     "synchronize": true,
+    "dropSchema": true,
     "logging": true
     },
   {

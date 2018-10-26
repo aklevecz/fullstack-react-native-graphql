@@ -9,6 +9,7 @@ export const resolvers: ResolverMap = {
     grabTicket: async (_, { listingId }, { session,redis }) => {
       await isAuthenticated(session);
 
+      // should probably reorg this, it assumes there can be multiple tickets, though perhaps all these checks function
       console.log('grab');
       console.log(session);
       const cheater = await Ticket.findOne({where:{listingId,finderId:session.userId}});
@@ -43,10 +44,10 @@ export const resolvers: ResolverMap = {
       }
 
 
-      // checking if the ticket actually was taken by the person
+      // checking if there is actually a ticket that belngs to the user
       const theTicket = await Ticket.findOne({where:{listingId,finderId:session.userId}});
       if (theTicket){
-        return {ticketId:availTick[0].filename};
+        return {ticketId:theTicket.filename};
       }
         return {ticketId:"gone"};
     }
