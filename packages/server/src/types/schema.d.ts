@@ -78,6 +78,8 @@ __typename: "Tickets";
 id: string;
 artist: string;
 venue: string;
+listingId: string;
+date: string;
 }
 
 interface IAccessResponse {

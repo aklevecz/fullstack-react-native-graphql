@@ -2,6 +2,7 @@ import * as React from "react";
 import { compose,graphql,ChildProps } from "react-apollo";
 import gql from "graphql-tag";
 import { Link } from "react-router-dom";
+import { dateArray } from '../../constants';
 
 
 const meQuery = gql`
@@ -21,6 +22,7 @@ const viewTicketsQuery = gql`
     artist
     venue
     listingId
+    date
   }
 }
 `
@@ -33,6 +35,7 @@ class C extends React.PureComponent<ChildProps<{viewTickets:any,me:any}>> {
     if (me.loading || viewTickets.loading){
       return <div style={{color:'white'}}>loading...</div>
     }      
+    
     console.log(me.me);
           return (
             <div>
@@ -50,11 +53,14 @@ class C extends React.PureComponent<ChildProps<{viewTickets:any,me:any}>> {
               <div id="ur-ticky-header"> ~THESE ARE ÜR TICKIES~ </div>
 
                 {viewTickets.viewTickets.map((t:any) => {
+                  const date = t.date.split('-');
+                  const month = dateArray[parseInt(date[1],10)-1]
+                  const dateString = month+' '+date[2];
                   return <Link to={`/listing/${t.listingId}/grab`}                            
                                 key={t.id}>
                             <div className="view-ticket-item" >
                               <p>{t.artist.toUpperCase()}</p>
-                              <p>{t.venue.toUpperCase()}</p>
+                              <p>{t.venue.toUpperCase()} ~ {dateString}</p>
                           </div>
                         </Link>
                 })}

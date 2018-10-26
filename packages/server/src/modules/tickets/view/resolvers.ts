@@ -22,7 +22,7 @@ export const resolvers: ResolverMap = {
       return tickieListingsP.sort((a:any,b:any) => {
         const aDate = new Date(a.date);
         const bDate = new Date(b.date);
-        return (aDate as any) - (bDate as any);
+        return (bDate as any) - (aDate as any);
       })
     }
   }

@@ -6,12 +6,16 @@ import { finderDefaultId,ticketCacheKey } from "../../../constants";
 function sleep(ms:number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
+// implement some sort of queue in the future
+// should probably just decouple this eventually? there is too much going on here
+// it should be mutation -> takes[grabs] ticket
+// query calls ticket to facilitate the checking of a ticket
+// the recheck is stupid
 export const resolvers: ResolverMap = {
   Mutation: {
     grabTicket: async (_, { listingId }, { session,redis }) => {
       await isAuthenticated(session);
-      sleep(Math.random()*1000);
+      sleep(Math.random()*3000);
       const availTicket = await Ticket.findOne({where:{listingId, finderId:finderDefaultId}});
       if (session.userId && availTicket){
         availTicket.finderId = session.userId;
@@ -31,7 +35,7 @@ export const resolvers: ResolverMap = {
         return {ticketId:"gone"};
       }
       // checking if there is actually a ticket that belngs to the user
-      sleep(Math.random()*1000);
+      sleep(Math.random()*3000);
       const theTicket = await Ticket.findOne({where:{listingId,finderId:session.userId}});
       console.log('THE TICKET RECHECK', theTicket);
       if (theTicket){

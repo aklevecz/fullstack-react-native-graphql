@@ -3,6 +3,7 @@ type Tickets {
   artist: String!
   venue: String!
   listingId: String!
+  date: String!
 }
 
 type Query {
