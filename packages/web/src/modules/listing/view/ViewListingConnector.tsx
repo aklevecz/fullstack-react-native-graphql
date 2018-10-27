@@ -8,6 +8,17 @@ export class ViewListingConnector extends React.PureComponent<
         listingId: string}>
     > {
 
+
+    CopyToClipboard = (e:any) => {
+        const url = 'https://lostminiticky.com'+this.props.location.pathname;
+        const textField = document.createElement('textarea')
+        textField.innerText = url
+        document.body.appendChild(textField)
+        textField.select()
+        document.execCommand('copy')
+        textField.remove()
+    }
+
     render() {
         const {
             match: {
@@ -41,7 +52,12 @@ export class ViewListingConnector extends React.PureComponent<
                 <div id="viewlisting-artist" >{data.listing.artist.toUpperCase()}</div>
                 <div id="viewlisting-venue" >{data.listing.venue.toUpperCase()}</div>
                 <div id="viewlisting-date" >{dateString}</div>
-                
+                <div style={{cursor:"pointer"}} onClick={this.CopyToClipboard}>
+                    <svg viewBox="0 0 411 31">
+                        <rect x="4.5" y="4.4" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeMiterlimit="10" width="13.6" height="20.3"/>
+                        <rect x="8" y="8.5" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeMiterlimit="10" width="13.6" height="20.3"/>
+                    </svg>
+                </div>    
                 <div id="viewlisting-footer">
                     {avail.length > 0 
                         ? 
@@ -109,7 +125,7 @@ export class ViewListingConnector extends React.PureComponent<
                                     <stop  offset="1" style={{stopColor:"#000000"}}/>
                                 </radialGradient>
                                 <circle fill="url(#SVGID_3_)" cx="205.5" cy="250" r="69.5"/>
-                                <polyline opacity="3.000000e-02" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" points="205.5,250 
+                                <polyline opacity="3.000000e-02" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeMiterlimit="10" points="205.5,250 
                                     238.3,548.4 205.5,250 172.7,-48.4 205.5,250 -92.9,282.8 205.5,250 503.9,217.2 205.5,250 378.3,566.7 205.5,250 32.7,-66.7 
                                     205.5,250 -111.2,422.8 205.5,250 522.2,77.2 205.5,250 444.4,493.4 205.5,250 -33.4,6.6 205.5,250 -37.9,488.9 205.5,250 
                                     448.9,11.1 205.5,250 265.3,574.1 205.5,250 145.7,-74.1 205.5,250 -118.6,309.8 205.5,250 529.6,190.2 205.5,250 420.3,463.7 
