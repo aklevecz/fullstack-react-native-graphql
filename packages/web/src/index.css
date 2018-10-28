@@ -28,6 +28,25 @@ a {
     100% { box-shadow: 0 0 100px #ed516d; }
   } */
 
+  #copyText {
+      color:#181818;
+      font-size:2em;
+  }
+
+  @keyframes glowing-copy {
+    0% { color:  #181818; }
+    20% { color: #f38b9e; }
+    40% { color: #e739f3; }
+    60% { color: #f38b9e; }
+    80% { color: #f38b9e; }
+    100% { color: #181818; }
+  }
+
+  .copy-glow {
+    animation-name: glowing-copy;
+    animation-duration: 5000ms;
+  }
+
   @keyframes glowing-path {
     0% { fill: #4fff04; }
     20% { fill: #f38b9e; }

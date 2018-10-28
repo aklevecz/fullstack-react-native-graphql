@@ -7,6 +7,12 @@ export class ViewListingConnector extends React.PureComponent<
     RouteComponentProps<{
         listingId: string}>
     > {
+    private copyText: React.RefObject<HTMLSpanElement>;
+
+    constructor(props: any){
+        super(props);
+        this.copyText = React.createRef();
+    }
 
 
     CopyToClipboard = (e:any) => {
@@ -17,6 +23,12 @@ export class ViewListingConnector extends React.PureComponent<
         textField.select()
         document.execCommand('copy')
         textField.remove()
+
+        if (this.copyText.current){
+            this.copyText.current.className="copy-glow";
+            setTimeout(()=>{this.copyText.current ? this.copyText.current.className="" : console.log('fuck')}, 5000);
+        }
+
     }
 
     render() {
@@ -25,8 +37,9 @@ export class ViewListingConnector extends React.PureComponent<
                 params: {listingId}
             }
         } = this.props;
-
+        const desk = window.innerWidth > 600;
     return(
+
         <ViewListing listingId={listingId}>
             {(data)=>{
 
@@ -53,10 +66,11 @@ export class ViewListingConnector extends React.PureComponent<
                 <div id="viewlisting-venue" >{data.listing.venue.toUpperCase()}</div>
                 <div id="viewlisting-date" >{dateString}</div>
                 <div style={{cursor:"pointer"}} onClick={this.CopyToClipboard}>
-                    <svg viewBox="0 0 411 31">
+                    <svg viewBox={`0 0 ${desk ? 411 : 120} 31`}>
                         <rect x="4.5" y="4.4" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeMiterlimit="10" width="13.6" height="20.3"/>
                         <rect x="8" y="8.5" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeMiterlimit="10" width="13.6" height="20.3"/>
                     </svg>
+                    <span ref={this.copyText} id="copyText">COPIED</span>
                 </div>    
                 <div id="viewlisting-footer">
                     {avail.length > 0 
