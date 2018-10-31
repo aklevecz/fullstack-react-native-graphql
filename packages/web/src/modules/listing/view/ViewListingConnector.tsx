@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ViewListing } from '@abb/controller';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { dateArray } from '../../../constants';
 
 export class ViewListingConnector extends React.PureComponent<
     RouteComponentProps<{
@@ -49,11 +50,12 @@ export class ViewListingConnector extends React.PureComponent<
 
                 let dateString='';
                 if (data.listing){
-                    const date = new Date(data.listing.date).toString().split(' ');
-                    dateString = date[1]+' '+date[2];
+                    console.log(data.listing.date);
+                    const date = data.listing.date.split('-')
+                    const month = dateArray[parseInt(date[1], 10)-1];
+                    dateString = month+' '+date[2];
                 }
                 const avail = JSON.parse(data.listing.pictureUrl);
-                console.log(avail);
                 return (
                 <div id="viewlisting-container">
 

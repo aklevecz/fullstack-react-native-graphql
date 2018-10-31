@@ -144,7 +144,7 @@ export class SpotifyArtistField extends React.PureComponent<FieldProps<any> & Pr
               }
               return (
                     <div onClick={this.handleClick} className="artist-search" key={a.id} id={a.id}>
-                        <img className="artist-image" src={a.images.length!==0 ? a.images[a.images.length-1].url : "https://s3-us-west-1.amazonaws.com/last-minute-ticket/-uFGWr6m8.jpeg"}/>
+                        <img className="artist-image" src={a.images.length!==0 ? a.images[a.images.length-1].url : "http://jp.popapostle.com/images/episodes/JP/amino-acid-sequences.JPG"}/>
                         <div className="artist-name">{artistName}</div>
                     </div>);
           })}
