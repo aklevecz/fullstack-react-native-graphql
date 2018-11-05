@@ -1,8 +1,21 @@
 import * as React from 'react';
+import Lottie from 'react-lottie';
+import * as animationData from '../../animations/data.json';
 
-export class Home extends React.PureComponent {
+
+export class Home extends React.Component {
+
     render() {
+        const defaultOptions = {
+            loop:true,
+            autoplay: true,
+            animationData
+        };
+
         return (
+            <div style={{marginTop:"2%"}}>
+            <Lottie height={"20%"} width={"20%"} options={defaultOptions}
+              isPaused={false}/>
             <svg viewBox="0 0 411 691" style={{marginTop:"10px"}}>
                 <rect id="BG_1_" y="1.3" fill="#1A1A1A" width="411" height="689"/>
                 <rect x="64.8" y="23.2" fill="none" stroke="#FFFFFF" strokeMiterlimit="10" width="152.3" height="152.3"/>
@@ -49,6 +62,7 @@ export class Home extends React.PureComponent {
                 <rect x="64.4" y="526.3" fill="none" width="306" height="131.3"/>
                 <text transform="matrix(1 0 0 1 181.6909 533.3659)"><tspan x="0" y="0" fill="#FFFFFF" fontFamily="'Montserrat'" fontWeight="500" fontSize="9.5653px">Want to help?</tspan><tspan x="-9.4" y="12" fill="#FFFFFF" fontFamily="'Montserrat'" fontWeight="500" fontSize="9.5653px">Have other ideas?</tspan><tspan x="-29.3" y="24" fill="#FFFFFF" fontFamily="'Montserrat'" fontWeight="500" fontSize="9.5653px">Have a burning question?</tspan><tspan x="-13" y="36" fill="#FFFFFF" fontFamily="'Montserrat'" fontWeight="500" fontSize="9.5653px">Want to get lunch?</tspan><tspan x="-19.3" y="48" fill="#FFFFFF" fontFamily="'Montserrat'" fontWeight="500" fontSize="9.5653px">Want to share music?</tspan><tspan x="-18" y="60" fill="#FFFFFF" fontFamily="'Montserrat'" fontWeight="500" fontSize="9.5653px">Have some criticism?</tspan><tspan x="-59.7" y="72" fill="#FFFFFF" fontFamily="'Montserrat'" fontWeight="500" fontSize="9.5653px">::Well then feel free to drop me a line::</tspan><tspan x="-25.5" y="96" fill="#FFFFFF" fontFamily="'Montserrat'" fontWeight="500" fontSize="9.5653px">arielklevecz@gmail.com</tspan></text>
                 </svg>
+                </div>
         );
     }
 }
