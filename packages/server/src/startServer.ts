@@ -143,6 +143,10 @@ export const startServer = async () => {
         } else {
           console.log('we have a user');
           console.log('WAAAGGG');
+          if (refreshToken !== user.spotifyRefreshToken){
+            user.spotifyRefreshToken=refreshToken;
+            user.save();
+          }
           console.log(user.spotifyId);
         }
 
