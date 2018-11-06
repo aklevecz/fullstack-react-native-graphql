@@ -23,9 +23,8 @@ export class Header extends React.PureComponent<RouteComponentProps<{}>> {
     render(){
         console.log(process.env);
         return (
-            <Query query={meQuery}>
-                {({ data, refetch }) => {
-                    refetch();
+            <Query query={meQuery} fetchPolicy="network-only">
+                {({ data }) => {
                         return (
                             <div style={{marginTop:"10px"}}>
                             <svg viewBox="0 0 411 40">
