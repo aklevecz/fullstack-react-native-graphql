@@ -107,7 +107,7 @@ export const startServer = async () => {
       {
         clientID: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-        callbackURL: process.env.NODE_ENV === 'production' ? 'https://dry-wave-89320.herokuapp.com/auth/spotify/callback':'http://localhost:4000/auth/spotify/callback',
+        callbackURL: process.env.BACKEND_HOST + '/auth/spotify/callback',
         includeEmail:true,
         passReqToCallback: true,
         scope: ['user-read-email', 'user-read-private'],
