@@ -29,7 +29,7 @@ export class Header extends React.PureComponent<RouteComponentProps<{}>> {
                             <div style={{marginTop:"10px"}}>
                             <svg viewBox="0 0 411 40">
                                 <g id="HEADER_1_">
-                                    <Link to="/">
+                                    <Link to="/home">
                                     <g>
                                         <g>
                                             <path stroke="#FFFFFF" strokeMiterlimit="10" d="M151.6,10.8h3.6v15.8h0.4v-12h3.5V30h-7.4V10.8z"/>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Lottie from 'react-lottie';
 import * as animationData from '../../animations/data.json';
-
+console.log(animationData);
 
 export class Home extends React.Component {
 

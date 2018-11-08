@@ -237,8 +237,9 @@ a {
   }
   #ticket-grab{
       border:2px white solid;
-      max-width:310px;
-	  max-height:310px;
+      /* max-width:310px;
+      max-height:310px; */
+      height:100%;
   }
 
 @media only screen and (min-width: 600px) {
