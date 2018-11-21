@@ -23,6 +23,8 @@ const customStyles = {
 interface State {
     modalIsOpen: boolean;
     input: string | null;
+    artist: string;
+    venue: string;
 }
 
 export class ViewListingConnector extends React.PureComponent<
@@ -37,17 +39,19 @@ export class ViewListingConnector extends React.PureComponent<
         this.state = {
             modalIsOpen: false,
             input:null,
+            artist: "",
+            venue: "",
         };
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
 
-    openModal(input:string) {
+    openModal(input:string, artist:string, venue:string) {
         if (input === 'copy') {
-            this.CopyToClipboard();
+            this.CopyToClipboard(artist, venue);
         }
-        this.setState({modalIsOpen: true, input }); 
+        this.setState({modalIsOpen: true, input, artist, venue }); 
     }
 
     afterOpenModal() {
@@ -64,8 +68,9 @@ export class ViewListingConnector extends React.PureComponent<
     }
 
 
-    CopyToClipboard = () => {
-        const url = 'https://be.lostminiticky.com'+this.props.location.pathname;
+    CopyToClipboard = (artist:string, venue:string) => {
+        console.log(this.props.match.params.listingId);
+        const url = `https://be.lostminiticky.com/ssr/?artist=${artist}&venue=${venue}&id=${this.props.match.params.listingId}`;
         const textField = document.createElement('textarea')
         textField.innerText = url
         document.body.appendChild(textField)
@@ -115,7 +120,7 @@ export class ViewListingConnector extends React.PureComponent<
             <div style={{display:"block"}}>
             <div style={{textAlign:"center",fontWeight:"bold",fontSize:'2em'}}>this link has been copied to your clippyboard :)</div> 
                 <div id="confirm-cancel-container" >
-                    <input style={{margin:"0 auto", width:"100%",color:"white"}} value={`https://be.lostminiticky.com${this.props.location.pathname}`}/>
+                    <input style={{margin:"0 auto", width:"100%",color:"white"}} value={`https://be.lostminiticky.com/ssr/?artist=${this.state.artist}&venue=${this.state.venue}&id=${listingId}`}/>
                 </div>
                 <div style={{display:'flex', justifyContent:'center'}}>
                     <button id="cancel" onClick={this.closeModal}>close</button>
@@ -148,7 +153,7 @@ export class ViewListingConnector extends React.PureComponent<
                 <div id="viewlisting-artist" >{data.listing.artist.toUpperCase()}</div>
                 <div id="viewlisting-venue" >{data.listing.venue.toUpperCase()}</div>
                 <div id="viewlisting-date" >{dateString}</div>
-                <div style={{cursor:"pointer"}} id="copyIcon" onClick={()=>{this.openModal('copy')}}>
+                <div style={{cursor:"pointer"}} id="copyIcon" onClick={()=>{this.openModal('copy', data.listing!.artist, data.listing!.venue)}}>
                     <svg viewBox={`0 0 ${desk ? 411 : 120} 31`}>
                         <rect x="4.5" y="4.4" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeMiterlimit="10" width="13.6" height="20.3"/>
                         <rect x="8" y="8.5" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeMiterlimit="10" width="13.6" height="20.3"/>
@@ -159,7 +164,7 @@ export class ViewListingConnector extends React.PureComponent<
                     {avail.length > 0 
                         ? 
                         // <Link to={`/listing/${listingId}/grab`}>
-                        <div style={{cursor:"pointer"}} id="ticky" onClick={()=>{this.openModal('ticky')}}>
+                        <div style={{cursor:"pointer"}} id="ticky" onClick={()=>{this.openModal('ticky', 'null', 'null')}}>
                             <Lottie options={tickyOptions}/>
                         </div>
                         // </Link>
