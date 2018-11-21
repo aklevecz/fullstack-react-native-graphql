@@ -2,7 +2,7 @@ export const htmlTemplate = (artist:string,venue:string,id:string) => {
 return (`<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta property="og:title" content="${artist}-${venue}" />
+    <meta property="og:title" content="${artist} @ ${venue} ~ find your ticky within" />
     <meta property="og:image" content="https://raw.githubusercontent.com/traysiMay/fullstack-react-native-graphql/prod/packages/web/public/og-image.png" /> 
     <meta property="og:description" 
           content="trying to see ${artist}?? your ticky could be inside! :D" />

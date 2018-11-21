@@ -22,6 +22,7 @@ const customStyles = {
 
 interface State {
     modalIsOpen: boolean;
+    input: string | null;
 }
 
 export class ViewListingConnector extends React.PureComponent<
@@ -34,15 +35,19 @@ export class ViewListingConnector extends React.PureComponent<
         super(props);
         this.copyText = React.createRef();
         this.state = {
-            modalIsOpen: false
+            modalIsOpen: false,
+            input:null,
         };
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
 
-    openModal() {
-        this.setState({modalIsOpen: true}); 
+    openModal(input:string) {
+        if (input === 'copy') {
+            this.CopyToClipboard();
+        }
+        this.setState({modalIsOpen: true, input }); 
     }
 
     afterOpenModal() {
@@ -59,8 +64,8 @@ export class ViewListingConnector extends React.PureComponent<
     }
 
 
-    CopyToClipboard = (e:any) => {
-        const url = 'https://lostminiticky.com'+this.props.location.pathname;
+    CopyToClipboard = () => {
+        const url = 'https://be.lostminiticky.com'+this.props.location.pathname;
         const textField = document.createElement('textarea')
         textField.innerText = url
         document.body.appendChild(textField)
@@ -95,15 +100,27 @@ export class ViewListingConnector extends React.PureComponent<
         isOpen={this.state.modalIsOpen}
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.closeModal}
-        contentLabel="Example Modal"
         style={customStyles}
         >
         <div>
+            {this.state.input === 'ticky' &&
+            <div>
             <div style={{textAlign:"center",fontWeight:"bold",fontSize:'2em'}}>Are you sure you want to grab this ticky?</div> 
             <div id="confirm-cancel-container">
                 <button id="cancel" onClick={this.closeModal}>oH NOPE!</button>
                 <button id="confirm" onClick={this.closeModal}>YEP!</button>   
             </div>
+            </div>}
+            {this.state.input === 'copy' &&
+            <div style={{display:"block"}}>
+            <div style={{textAlign:"center",fontWeight:"bold",fontSize:'2em'}}>this link has been copied to your clippyboard :)</div> 
+                <div id="confirm-cancel-container" >
+                    <input style={{margin:"0 auto", width:"100%",color:"white"}} value={`https://be.lostminiticky.com${this.props.location.pathname}`}/>
+                </div>
+                <div style={{display:'flex', justifyContent:'center'}}>
+                    <button id="cancel" onClick={this.closeModal}>close</button>
+                </div>
+            </div>}
           </div>      
         </Modal>
         <ViewListing listingId={listingId}>
@@ -131,7 +148,7 @@ export class ViewListingConnector extends React.PureComponent<
                 <div id="viewlisting-artist" >{data.listing.artist.toUpperCase()}</div>
                 <div id="viewlisting-venue" >{data.listing.venue.toUpperCase()}</div>
                 <div id="viewlisting-date" >{dateString}</div>
-                <div style={{cursor:"pointer"}} onClick={this.CopyToClipboard}>
+                <div style={{cursor:"pointer"}} id="copyIcon" onClick={()=>{this.openModal('copy')}}>
                     <svg viewBox={`0 0 ${desk ? 411 : 120} 31`}>
                         <rect x="4.5" y="4.4" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeMiterlimit="10" width="13.6" height="20.3"/>
                         <rect x="8" y="8.5" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeMiterlimit="10" width="13.6" height="20.3"/>
@@ -142,7 +159,7 @@ export class ViewListingConnector extends React.PureComponent<
                     {avail.length > 0 
                         ? 
                         // <Link to={`/listing/${listingId}/grab`}>
-                        <div style={{cursor:"pointer"}} onClick={this.openModal}>
+                        <div style={{cursor:"pointer"}} id="ticky" onClick={()=>{this.openModal('ticky')}}>
                             <Lottie options={tickyOptions}/>
                         </div>
                         // </Link>
