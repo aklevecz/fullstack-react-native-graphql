@@ -120,7 +120,7 @@ export class ViewListingConnector extends React.PureComponent<
             <div style={{display:"block"}}>
             <div style={{textAlign:"center",fontWeight:"bold",fontSize:'2em'}}>this link has been copied to your clippyboard :)</div> 
                 <div id="confirm-cancel-container" >
-                    <input style={{margin:"0 auto", width:"100%",color:"white"}} value={`https://be.lostminiticky.com/ssr/?artist=${this.state.artist}&venue=${this.state.venue}&id=${listingId}`}/>
+                    <input style={{margin:"0 auto", width:"100%",color:"white"}} defaultValue={`https://be.lostminiticky.com/ssr/?artist=${this.state.artist}&venue=${this.state.venue}&id=${listingId}`}/>
                 </div>
                 <div style={{display:'flex', justifyContent:'center'}}>
                     <button id="cancel" onClick={this.closeModal}>close</button>
