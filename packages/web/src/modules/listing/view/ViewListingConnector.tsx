@@ -70,7 +70,7 @@ export class ViewListingConnector extends React.PureComponent<
 
     CopyToClipboard = (artist:string, venue:string) => {
         console.log(this.props.match.params.listingId);
-        const url = `https://be.lostminiticky.com/ssr/?artist=${artist}&venue=${venue}&id=${this.props.match.params.listingId}`;
+        const url = `https://be.lostminiticky.com/ssr/?artist=${artist}&venue=${venue}&id=${this.props.match.params.listingId}`.replace(/ /g, '%20');
         const textField = document.createElement('textarea')
         textField.innerText = url
         document.body.appendChild(textField)
@@ -83,6 +83,10 @@ export class ViewListingConnector extends React.PureComponent<
             setTimeout(()=>{this.copyText.current ? this.copyText.current.className="" : console.log('fuck')}, 5000);
         }
 
+    }
+
+    handleFocus = (e:any) => {
+        e.target.select();
     }
 
     render() {
@@ -120,7 +124,7 @@ export class ViewListingConnector extends React.PureComponent<
             <div style={{display:"block"}}>
             <div style={{textAlign:"center",fontWeight:"bold",fontSize:'2em'}}>this link has been copied to your clippyboard :)</div> 
                 <div id="confirm-cancel-container" >
-                    <input style={{margin:"0 auto", width:"100%",color:"white"}} defaultValue={`https://be.lostminiticky.com/ssr/?artist=${this.state.artist}&venue=${this.state.venue}&id=${listingId}`}/>
+                    <input onFocus={this.handleFocus} style={{margin:"0 auto", width:"100%",color:"black", borderBottom:"2px black solid",outline:"none",backgroundColor:"white"}} defaultValue={`https://be.lostminiticky.com/ssr/?artist=${this.state.artist}&venue=${this.state.venue}&id=${listingId}`.replace(/ /g, '%20')}/>
                 </div>
                 <div style={{display:'flex', justifyContent:'center'}}>
                     <button id="cancel" onClick={this.closeModal}>close</button>
