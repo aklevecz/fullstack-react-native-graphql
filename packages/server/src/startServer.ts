@@ -25,6 +25,9 @@ import { Listing } from "./entity/Listing";
 import { Ticket } from "./entity/Ticket";
 import { User } from "./entity/User";
 
+import { htmlTemplate } from './template';
+
+
 const SESSION_SECRET = "ajslkjalksjdfkl";
 const RedisStore = connectRedis(session as any);
 
@@ -199,6 +202,14 @@ export const startServer = async () => {
     console.log("LSTINGS");
     console.log(res,req);
   })
+
+  server.get('/ssr', ( req:any,res:any ) => {
+    const { artist,venue,id } = req.query;
+    console.log(artist);
+    console.log(venue);
+    console.log(id);
+    res.end(htmlTemplate(artist,venue,id));
+  });
 
   // clear the cache
   await redis.del(listingCacheKey);
