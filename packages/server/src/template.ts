@@ -3,7 +3,6 @@ return (`<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta property="og:title" content="${artist}-${venue}" />
-    <meta property="og:url" content="https://lostminiticky.com/listing/${id}" />
     <meta property="og:image" content="https://raw.githubusercontent.com/traysiMay/fullstack-react-native-graphql/prod/packages/web/public/og-image.png" /> 
     <meta property="og:description" 
           content="trying to see ${artist}?? your ticky could be inside! :D" />
