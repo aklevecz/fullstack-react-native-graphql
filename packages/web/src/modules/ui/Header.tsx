@@ -67,7 +67,7 @@ export class Header extends React.PureComponent<RouteComponentProps<{}>> {
                                 </g>
                                 </svg>
                                     <div id="nav">
-                                    <svg viewBox="0 0 64 101.7">
+                                    <svg viewBox="0 0 64 127">
                                     <g>
                                         <Link to="/listings">
                                         <g id="LISTINGS">
@@ -93,6 +93,14 @@ export class Header extends React.PureComponent<RouteComponentProps<{}>> {
                                         </g>
                                         </Link>
                                     </g>
+                                    <Link to="/all-stars">
+                                    <g id="STAR">
+                                        <path fill="#231F20" stroke="#FFFFFF" strokeMiterlimit="10" d="M45.6,111.2c0-7.6-6.2-13.8-13.8-13.8S18,103.6,18,111.2
+                                            S24.2,125,31.8,125C39.4,125,45.6,118.8,45.6,111.2z"/>
+                                        <polygon fill="none" stroke="#FFFFFF" strokeMiterlimit="10" points="31.8,103.9 34,108.4 39,109.2 35.4,112.7 36.2,117.7 
+                                            31.8,115.3 27.3,117.7 28.1,112.7 24.5,109.2 29.5,108.4 	"/>
+                                    </g>
+                                    </Link>
                                     </svg>
                                     </div>
                                 </div>

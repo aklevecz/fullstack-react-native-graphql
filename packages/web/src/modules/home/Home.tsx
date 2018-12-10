@@ -11,7 +11,7 @@ export class Home extends React.Component {
             autoplay: true,
             animationData
         };
-
+        console.log('cream')
         return (
             <div style={{marginTop:"2%"}}>
             <Lottie height={"20%"} width={"20%"} options={defaultOptions}
