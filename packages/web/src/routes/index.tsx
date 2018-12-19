@@ -24,7 +24,7 @@ export const Routes = () => (
   <div>
   <Route component={Header} />
     <Switch>
-      <Route exact={true} path="/" component={FindListingsConnector} />
+      <Route exact={true} path="/" component={Home} />
       <Route exact={true} path="/home" component={Home} />
       <Route exact={true} path="/all-stars" component={Allstars} />
       <Route exact={true} path="/me" component={Me} />
