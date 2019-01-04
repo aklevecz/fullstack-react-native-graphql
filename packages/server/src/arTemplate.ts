@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+
+
+export const arTemplate = () => {
+	return (`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -17,11 +20,7 @@
   <script>THREEx.ArToolkitContext.baseURL = ""</script>
 </head>
 <body>
-  <div style="z-index:-5" id="ARContainer">
-
-	</div>
-
-
+  <div style="z-index:-5" id="ARContainer"></div>
 <script>
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Init
@@ -218,4 +217,4 @@
 	})
 </script>
 </body>
-</html>
+</html>`)}

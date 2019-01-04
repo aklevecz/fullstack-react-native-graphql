@@ -26,8 +26,7 @@ import { Ticket } from "./entity/Ticket";
 import { User } from "./entity/User";
 
 import { htmlTemplate } from './template';
-// import { arTemplate } from './arTemplate';
-import * as path from 'path';
+import { arTemplate } from './arTemplate';
 
 
 const SESSION_SECRET = "ajslkjalksjdfkl";
@@ -194,9 +193,9 @@ export const startServer = async () => {
     const { userId } = req.session!;
     const user = await User.findOne({id:userId});
     if (user){
-      res.sendFile(path.join(__dirname+'/templates/arTemplate.html'));
+      res.end(arTemplate());
     } else {
-      res.sendFile(path.join(__dirname+'/templates/arTemplate.html'));
+      res.end(arTemplate());
     }
   })
 
