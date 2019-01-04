@@ -65,7 +65,7 @@ export const arTemplate = () => {
 		
 		// to read from an image
 		sourceType : 'image',
-		sourceUrl : THREEx.ArToolkitContext.baseURL + '/images/HVOBmarker.png',		
+		sourceUrl : THREEx.ArToolkitContext.baseURL + '/arAssets/HVOBmarker.png',		
 
 		// to read from a video
 		// sourceType : 'video',
@@ -130,7 +130,7 @@ export const arTemplate = () => {
     })
     
     video = document.createElement('video');
-    video.src = '/images/HVOB_FULL.mp4';
+    video.src = '/arAssets/HVOB_FULL.mp4';
     video.loop = true;
 	video.load();
 	
