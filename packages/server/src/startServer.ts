@@ -26,6 +26,8 @@ import { Ticket } from "./entity/Ticket";
 import { User } from "./entity/User";
 
 import { htmlTemplate } from './template';
+// import { arTemplate } from './arTemplate';
+import * as path from 'path';
 
 
 const SESSION_SECRET = "ajslkjalksjdfkl";
@@ -88,15 +90,16 @@ export const startServer = async () => {
   );
 
   server.express.use("/images", express.static("images"));
+  server.express.use("/js", express.static("js"));
+  server.express.use("/patterns", express.static("patterns"));
 
   const cors = {
     credentials: true,
     origin:
       process.env.NODE_ENV === "test"
-        ? "*"
+        ? (process.env.FRONTEND_HOST as string)
         : (process.env.FRONTEND_HOST as string)
   };
-
   server.express.get("/confirm/:id", confirmEmail);
 
   if (process.env.NODE_ENV === "test") {
@@ -116,9 +119,7 @@ export const startServer = async () => {
         scope: ['user-read-email', 'user-read-private'],
       },
       async (req:any, accessToken:any, refreshToken:any, expiresIn:any, profile:any, done:any) => {
-        // User.findOrCreate({ spotifyId: profile.id }, function(err, user) {
-        //   return done(err, user);
-        // });
+
         console.log(accessToken);
         console.log(refreshToken);
         console.log(expiresIn);
@@ -158,17 +159,6 @@ export const startServer = async () => {
           req.session.userId = user.id;
         }
 
-        // if (!req.session.userId){
-          
-        //   await User.create({email:email,
-        //                      password:id+refreshToken,
-        //                      spotifyId:id,
-        //                      spotifyName:display_name,
-        //                      spotifyRefreshToken:refreshToken,
-        //                      }).save();
-        // }
-
-
         console.log(id,display_name,email);
         return done(null, profile);
       }
@@ -197,10 +187,20 @@ export const startServer = async () => {
       process.env.NODE_ENV === 'production' ? res.redirect(process.env.FRONTEND_HOST as string) : res.redirect('http://localhost:3000/');
     }
   );
-  console.log('get');
-  server.express.get("/listings", (req,res) => {
-    console.log("LSTINGS");
-    console.log(res,req);
+
+
+  server.express.get("/AR", async (req, res) => {
+    const { userId } = req.session!;
+    const user = await User.findOne({id:userId});
+    if (user){
+      res.sendFile(path.join(__dirname+'/templates/arTemplate.html'));
+    } else {
+      res.end('<h1>hehe</h1>')
+    }
+  })
+
+  server.express.get("/", (_,res) => {
+    res.redirect(process.env.FRONTEND_HOST as string)
   })
 
   server.get('/ssr', ( req:any,res:any ) => {
@@ -242,6 +242,7 @@ export const startServer = async () => {
     await redis.lpush(ticketCacheKey, ...ticketStrings);
   }
   // shitshitshitty
+
 
 
 
