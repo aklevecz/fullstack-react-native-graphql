@@ -61,11 +61,11 @@ export const arTemplate = () => {
 
 	var arToolkitSource = new THREEx.ArToolkitSource({
 		// to read from the webcam 
-		// sourceType : 'webcam',
+		sourceType : 'webcam',
 		
 		// to read from an image
-		sourceType : 'image',
-		sourceUrl : THREEx.ArToolkitContext.baseURL + '/arAssets/HVOBmarker.png',		
+		// sourceType : 'image',
+		// sourceUrl : THREEx.ArToolkitContext.baseURL + '/arAssets/HVOBmarker.png',		
 
 		// to read from a video
 		// sourceType : 'video',
