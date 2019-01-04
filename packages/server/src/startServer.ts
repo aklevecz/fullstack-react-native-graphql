@@ -82,6 +82,7 @@ export const startServer = async () => {
       resave: false,
       saveUninitialized: false,
       cookie: {
+        domain: 'localhost',
         httpOnly: true,
         // secure: process.env.NODE_ENV === "production",
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
@@ -176,7 +177,6 @@ export const startServer = async () => {
     "/auth/spotify/callback",
     passport.authenticate("spotify", {session:false}),
     async (req,res) => {
-      console.log('callback420');
       if (req.session){
         console.log(req.session.spotifyAccessToken);
       }
@@ -190,12 +190,13 @@ export const startServer = async () => {
 
 
   server.express.get("/AR", async (req, res) => {
+    console.log(req.session);
     const { userId } = req.session!;
     const user = await User.findOne({id:userId});
     if (user){
       res.sendFile(path.join(__dirname+'/templates/arTemplate.html'));
     } else {
-      res.end('<h1>hehe</h1>')
+      res.sendFile(path.join(__dirname+'/templates/arTemplate.html'));
     }
   })
 
