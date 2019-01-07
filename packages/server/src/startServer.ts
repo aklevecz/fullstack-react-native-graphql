@@ -83,7 +83,6 @@ export const startServer = async () => {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        domain: 'localhost',
         httpOnly: true,
         // secure: process.env.NODE_ENV === "production",
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
@@ -186,18 +185,18 @@ export const startServer = async () => {
 
   server.express.use(passport.initialize());
 
-  // server.express.get('/auth/spotify', (req, res, next) => {
-  //   // this is the id of the hunted ticket added to the request session involving spotify auth
-  //   req.session!.arHuntedId = req.query.arHuntedId;
-  //   passport.authenticate('spotify')(req,res,next);
-  // });  
-
-  server.express.get('/auth/spotify', passport.authenticate('spotify'), (req, res) => {
-    console.log(req);
-    console.log(res);
-    // The request will be redirected to spotify for authentication, so this
-    // function will not be called.
+  server.express.get('/auth/spotify', (req, res, next) => {
+    // this is the id of the hunted ticket added to the request session involving spotify auth
+    req.session!.arHuntedId = req.query.arHuntedId;
+    passport.authenticate('spotify')(req,res,next);
   });  
+
+  // server.express.get('/auth/spotify', passport.authenticate('spotify'), (req, res) => {
+  //   console.log(req);
+  //   console.log(res);
+  //   // The request will be redirected to spotify for authentication, so this
+  //   // function will not be called.
+  // });  
 
   server.express.get(
     "/auth/spotify/callback",
