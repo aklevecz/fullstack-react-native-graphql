@@ -22,6 +22,7 @@ column: number;
 
 interface IQuery {
 __typename: "Query";
+viewHunted: Array<IHunted>;
 findListings: Array<IListing>;
 searchListings: Array<IListing>;
 viewListing: IListing | null;
@@ -43,6 +44,15 @@ id: string;
 
 interface IMessagesOnQueryArguments {
 listingId: string;
+}
+
+interface IHunted {
+__typename: "Hunted";
+id: string;
+artist: string;
+hunt: string;
+finderId: string;
+filename: string;
 }
 
 interface IListing {

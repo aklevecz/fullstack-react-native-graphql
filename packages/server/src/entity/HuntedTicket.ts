@@ -16,7 +16,7 @@ import { finderDefaultId } from "../constants";
 
     @Column("date") date: Date;
 
-    @Column("varchar", {length:30}) hunt: string;
+    @Column("varchar", {length:30,}) hunt: string;
   
     @Column("varchar", {length:100}) filename: string;
   

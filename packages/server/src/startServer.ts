@@ -229,9 +229,9 @@ export const startServer = async () => {
     }
   })
 
-  server.express.get("/", (_,res) => {
-    res.redirect(process.env.FRONTEND_HOST as string)
-  })
+  // server.express.get("/", (_,res) => {
+  //   res.redirect(process.env.FRONTEND_HOST as string)
+  // })
 
   server.get('/ssr', ( req:any,res:any ) => {
     const { artist,venue,id } = req.query;
