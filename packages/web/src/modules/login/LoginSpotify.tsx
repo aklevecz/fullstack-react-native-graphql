@@ -23,7 +23,7 @@ export class LoginSpotify extends React.PureComponent{
                 margin: "0 auto",
                 marginTop: "13px"
             }}
-        onClick={()=> window.location.href = process.env.REACT_APP_SERVER_URL+'auth/spotify'}
+        onClick={()=> window.location.href = process.env.REACT_APP_SERVER_URL+'auth/spotify?meepo=onetwothree'}
         >LOGIN
         </div>
         </div>

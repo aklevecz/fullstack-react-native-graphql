@@ -1,6 +1,23 @@
+const ajaxCall = `
+if (!markerFound){
+	markerFound=true;
+	$.ajax({
+	url:'/huntFind',
+	method: 'POST',
+	contentType: "application/json",
+	data: '{"hunt":"hvob"}',
+	success: function(data){
+		console.log("you");
+		if (data.arHuntedId) {
+			console.log(data);
+			window.location="${process.env.BACKEND_HOST}/auth/spotify?arHuntedId="+data.arHuntedId;
+		}
+	}
+	})
+}
+`
 
-
-export const arTemplate = () => {
+export const arTemplate = (ticketCheck: boolean) => {
 	return (`<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,11 +78,11 @@ export const arTemplate = () => {
 
 	var arToolkitSource = new THREEx.ArToolkitSource({
 		// to read from the webcam 
-		sourceType : 'webcam',
+		// sourceType : 'webcam',
 		
 		// to read from an image
-		// sourceType : 'image',
-		// sourceUrl : THREEx.ArToolkitContext.baseURL + '/arAssets/HVOBmarker.png',		
+		sourceType : 'image',
+		sourceUrl : THREEx.ArToolkitContext.baseURL + '/arAssets/qr-hvob_lmt_ar.png',		
 
 		// to read from a video
 		// sourceType : 'video',
@@ -126,7 +143,7 @@ export const arTemplate = () => {
 	scene.add(markerRoot1)
 	var markerControls = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
 		type : 'pattern',
-		patternUrl : THREEx.ArToolkitContext.baseURL + '/patterns/HVOB.patt',
+		patternUrl : THREEx.ArToolkitContext.baseURL + '/patterns/qr-hvob_lmt_ar.patt',
     })
     
     video = document.createElement('video');
@@ -172,19 +189,9 @@ export const arTemplate = () => {
 			if (mesh.material.opacity >= .9){
 				video.play();
 			}
-			if (!markerFound){
-				markerFound=true;
-				$.ajax({
-				url:'/huntFind',
-				method: 'POST',
-				data: {hunt:'hvob'},
-				success: function(data){
-					console.log(data)
-				}
-				})
-			}
 
-			
+			${ticketCheck && ajaxCall}
+
             //geometry.verticesNeedUpdate = true;
         }
 

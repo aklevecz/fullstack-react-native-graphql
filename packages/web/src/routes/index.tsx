@@ -16,9 +16,9 @@ import { Header } from "../modules/ui/Header";
 import { Me } from "../modules/me/Me";
 import { GrabTicketConnector } from "../modules/listing/grab/GrabTicketConnector";
 import { Home } from "../modules/home/Home";
+import { Hunted } from "../modules/hunted/Hunted";
 import { Allstars } from "../modules/allstars/Allstars";
 import { LoginSpotify } from "../modules/login/LoginSpotify";
-import { AR } from "../modules/ar/AR";
 
 
 export const Routes = () => (
@@ -27,10 +27,10 @@ export const Routes = () => (
   <Route component={Header} />
     <Switch>
       <Route exact={true} path="/" component={Home} />
-      <Route exact={true} path="/AR" component={AR} />
       <Route exact={true} path="/home" component={Home} />
       <Route exact={true} path="/all-stars" component={Allstars} />
       <Route exact={true} path="/me" component={Me} />
+      <Route exact={true} path="/hunted" component={Hunted} />
       <Route exact={true} path="/register" component={LoginSpotify} />
       <Route exact={true} path="/login" component={LoginSpotify} />
       <Route

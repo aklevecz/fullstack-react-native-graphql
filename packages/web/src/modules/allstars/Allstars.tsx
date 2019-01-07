@@ -1,20 +1,13 @@
 import * as React from 'react';
-// import Lottie from 'react-lottie';
-// import * as animationData from '../../animations/data.json';
-// console.log(animationData);
+
 
 export class Allstars extends React.Component {
 
     render() {
-        // const defaultOptions = {
-        //     loop:true,
-        //     autoplay: true,
-        //     animationData
-        // };
         return (
             <div>
 <svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-	 x="0px" y="0px" viewBox="0 0 411 519">
+	 x="0px" y="0px" viewBox="13 0 411 519">
 <rect id="BG_2_" x="0.2" y="0.3" fill="#1A1A1A" width="411" height="730"/>
 <g id="heart">
 	<path id="path2417_1_" fill="#FFFFFF" d="M202.9,444c-5-5.6-17.6-16.6-27.9-24.4c-30.6-23.1-34.7-26.4-47.1-37.8

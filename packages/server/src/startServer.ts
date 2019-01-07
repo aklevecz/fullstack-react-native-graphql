@@ -8,6 +8,7 @@ import * as RateLimit from "express-rate-limit";
 import * as RateLimitRedisStore from "rate-limit-redis";
 import { applyMiddleware } from "graphql-middleware";
 import * as express from "express";
+import * as bodyParser from 'body-parser';
 import { RedisPubSub } from "graphql-redis-subscriptions";
 
 import * as passport from 'passport';
@@ -27,6 +28,7 @@ import { User } from "./entity/User";
 
 import { htmlTemplate } from './template';
 import { arTemplate } from './arTemplate';
+import { HuntedTicket } from "./entity/HuntedTicket";
 
 
 const SESSION_SECRET = "ajslkjalksjdfkl";
@@ -89,6 +91,9 @@ export const startServer = async () => {
     } as any)
   );
 
+  server.express.use(bodyParser.json());
+
+
   server.express.use("/images", express.static("images"));
   server.express.use("/js", express.static("js"));
   server.express.use("/patterns", express.static("patterns"));
@@ -121,7 +126,8 @@ export const startServer = async () => {
         scope: ['user-read-email', 'user-read-private'],
       },
       async (req:any, accessToken:any, refreshToken:any, expiresIn:any, profile:any, done:any) => {
-
+        console.log("WTF");
+        console.log(req.query);
         console.log(accessToken);
         console.log(refreshToken);
         console.log(expiresIn);
@@ -161,43 +167,65 @@ export const startServer = async () => {
           req.session.userId = user.id;
         }
 
+      // ar hunt logic
+      if (req.session.arHuntedId) {
+        const { arHuntedId } = req.session;
+        const arTicket = await HuntedTicket.findOne({id:arHuntedId, finderId:finderDefaultId});
+        
+        if (arTicket) {
+          arTicket.finderId = user.id;
+          arTicket.save();
+        }
+      }
+
         console.log(id,display_name,email);
         return done(null, profile);
       }
     )
   );
+
   server.express.use(passport.initialize());
-  // server.express.use(passport.session());
-  server.express.get('/auth/spotify', passport.authenticate('spotify'), (req, res) => {
-    console.log(req);
-    console.log(res);
-    // The request will be redirected to spotify for authentication, so this
-    // function will not be called.
+
+  server.express.get('/auth/spotify', (req, res, next) => {
+    // this is the id of the hunted ticket added to the request session involving spotify auth
+    req.session!.arHuntedId = req.query.arHuntedId;
+    passport.authenticate('spotify')(req,res,next);
   });  
+
   server.express.get(
     "/auth/spotify/callback",
     passport.authenticate("spotify", {session:false}),
     async (req,res) => {
+      console.log('CALLBACK')
       if (req.session){
         console.log(req.session.spotifyAccessToken);
       }
+      // const {arHuntedId} = req.session!;
       // is this necessary?
       if (req.sessionID && req.session){
         await redis.lpush(`${userSessionIdPrefix}${req.session.userId}`, req.sessionID);
       }
-      process.env.NODE_ENV === 'production' ? res.redirect(process.env.FRONTEND_HOST as string) : res.redirect('http://localhost:3000/');
+      res.redirect(process.env.FRONTEND_HOST+'/hunted' as string);
     }
   );
 
 
   server.express.get("/AR", async (req, res) => {
-    console.log(req.session);
-    const { userId } = req.session!;
-    const user = await User.findOne({id:userId});
-    if (user){
-      res.end(arTemplate());
-    } else {
-      res.end(arTemplate());
+    const hunt = req.hostname.split('.')[0];
+    const ticket = await HuntedTicket.findOne({hunt, finderId:finderDefaultId});
+    // the subdomain/hunt should also pick the appropriate template
+    res.end(arTemplate(!!ticket));
+  })
+
+  server.express.post("/huntFind", async (req, res) => {
+    const { hunt } = req.body;
+    // sort of redundant, but why not chekc again
+    const tick = await HuntedTicket.findOne({hunt, finderId:finderDefaultId});
+    if (!!tick) {
+      // sending this to the template so it can be sent within the request to spotify
+      res.send({"arHuntedId":tick!.id});
+    } else{
+      res.send('meepo');
     }
   })
 

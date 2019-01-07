@@ -1,0 +1,11 @@
+type Hunted {
+  id: String!
+  artist: String!
+  hunt: String!
+  finderId: String!
+  filename: String!
+}
+
+type Query {
+  viewHunted: [Hunted!]!
+}
