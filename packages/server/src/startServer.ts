@@ -211,7 +211,7 @@ export const startServer = async () => {
       if (req.sessionID && req.session){
         await redis.lpush(`${userSessionIdPrefix}${req.session.userId}`, req.sessionID);
       }
-      res.redirect(process.env.FRONTEND_HOST+'/hunted' as string);
+      res.redirect(process.env.FRONTEND_HOST as string);
     }
   );
 
