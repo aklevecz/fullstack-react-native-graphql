@@ -35,7 +35,7 @@ class C extends React.PureComponent<
     }
 
   render() {
-    console.log(this.state);
+    const TICKET_URL = `${process.env.REACT_APP_AWS_BUCKET_URL}${this.state.ticketId}`;
     return (
         <div style={{height:this.state.height}}>
             <h2 style={{padding:"1%"}}>HERE IS UR TICKY</h2>
@@ -43,12 +43,12 @@ class C extends React.PureComponent<
                 <div id="ticket-grab-container" style={{height:"100%"}}>
                     {this.state.fileType==="pdf" ?
                     <div style={{textAlign:"center"}}>
-                    <a style={{color:"red",fontFamily:"IBM Plex Sans",fontSize:"30px"}} href={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`}>DOWNLOAD</a>
-                    <embed src={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} type="application/pdf" width="100%" height="100%"/>            </div>
+                    <a style={{color:"red",fontFamily:"IBM Plex Sans",fontSize:"30px"}} href={TICKET_URL}>DOWNLOAD</a>
+                    <embed src={TICKET_URL} type="application/pdf" width="100%" height="100%"/>            </div>
                         :
                         <div style={{textAlign:"center"}}>
-                        <a style={{color:"red",fontFamily:"IBM Plex Sans",fontSize:"30px"}} href={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`}>DOWNLOAD</a><br/>
-                        <img id="ticket-grab" src={`https://s3-us-west-1.amazonaws.com/last-minute-ticket/${this.state.ticketId}`} /></div>
+                        <a style={{color:"red",fontFamily:"IBM Plex Sans",fontSize:"30px"}} href={TICKET_URL}>DOWNLOAD</a><br/>
+                        <img id="ticket-grab" src={TICKET_URL} /></div>
                     }
                     
                 </div>

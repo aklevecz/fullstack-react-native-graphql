@@ -31,7 +31,6 @@ const viewHuntedQuery = gql`
 class C extends React.PureComponent<ChildProps<{viewHunted:any,me:any}>> {
   render() {
     const {viewHunted, me} = this.props;
-    // console.log(this.props);
     // this.props.me.refetch();
     if (me.loading || viewHunted.loading){
       return <div style={{color:'white', textAlign:'center'}}>loading...</div>
@@ -39,8 +38,6 @@ class C extends React.PureComponent<ChildProps<{viewHunted:any,me:any}>> {
     if (me.me===null){
         return <div style={{color:'white', textAlign:'center'}}>you ain't logged in</div>
     }
-    console.log(me.me);
-    console.log(viewHunted.viewHunted);
           return (
             <div>
                 <HuntedHeader/>
@@ -58,15 +55,23 @@ class C extends React.PureComponent<ChildProps<{viewHunted:any,me:any}>> {
                     <div style={{color:'white', textAlign:'center', fontSize:'23px'}}>
                         {viewHunted.viewHunted && viewHunted.viewHunted.map((hunted:any)=> {
                             const {id, hunt, filename} = hunted;
+                            const TICKET_URL = process.env.REACT_APP_AWS_BUCKET_URL+filename;
                             return (
                                 <div key={id}><p>{hunt.toUpperCase()}</p>
-                                <img src={process.env.REACT_APP_SERVER_URL+'images/'+filename}/>
-
+                                <a style={{color:"red",fontFamily:"IBM Plex Sans",fontSize:"30px"}} href={TICKET_URL}>DOWNLOAD</a>
+                                <img src={TICKET_URL}/>
                                 </div>
                             );
                                     
                         })}
-                        {viewHunted.viewHunted.length===0 && <div style={{color:'red'}}>Oh dear! you have yet to find a hunted ticky!</div>}
+                        {viewHunted.viewHunted.length===0 && 
+                        <div style={{color:'red',
+                                    width:'59%',
+                                    margin:'0 auto',
+                                    fontSize: window.innerWidth > window.innerHeight ? '36px' : '23px'}}>
+                            Oh dear! you have yet to find a hunted ticky!
+                        </div>
+                        }
                     </div>
                 </div>
           )

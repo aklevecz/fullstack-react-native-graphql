@@ -21,7 +21,6 @@ export class Header extends React.PureComponent<RouteComponentProps<{}>> {
         return this.props.history.push('/me');
     }
     render(){
-        console.log(process.env);
         return (
             <Query query={meQuery} fetchPolicy="network-only">
                 {({ data }) => {
