@@ -61,17 +61,37 @@ export const arTemplate = (ticketCheck: boolean) => {
 	wrapper: AEContainer,
 	animType: 'svg',
 	loop: true,
-	path: 'animations/qrMadness5.json'
+	path: 'animations/qrMadness.json'
 	});
 
-	var qr;
+	var qr,paths,requests;
 	animItem.addEventListener('DOMLoaded', function(e) { 	
 		svg = document.getElementsByTagName('svg')[0];
-		qr = svg.getElementsByTagName('g')[12];
+		qr = svg.getElementsByTagName('g')[27];
+		paths = qr.getElementsByTagName('path');
+		numPaths = paths.length;
+
+
+		const performAnimation = () => {
+		request = requestAnimationFrame(performAnimation)
+		var randomPath = Math.floor(Math.random() * numPaths);
+		if (randomPath % 2 === 0){
+			paths[randomPath].style.fill = 'rgb(255,0,0)';
+		}else{
+			paths[randomPath].style.fill = 'rgb(255,255,255)';
+		}
+
+		}
+
+		requestAnimationFrame(performAnimation)
+
+		//...
+
 
 	console.log(qr); });
 
 	animItem.addEventListener('loopComplete', function(e){
+		cancelAnimationFrame(request) //stop the animation
 		qr.innerHTML = '';
 		qr.innerHTML = '<g id="QR2"><rect class="button-glow" x="80.6"y="240.6"fill="#FF3333"stroke="#000000"stroke-width="10"stroke-miterlimit="20"width="249"height="249"/><g><path fill="#EA74FF"stroke="#9AE0FF"stroke-miterlimit="10"d="M150.6,332.6v-20.1h2.4v20.1H150.6z"/><path fill="#EA74FF"stroke="#9AE0FF"stroke-miterlimit="10"d="M172.1,320.9v-8.4h2.4v20.1l-3,0l-11.3-16.7l0.1,8.3v8.4H158\
 		v-20.1h3l11.3,16.7L172.1,320.9z"/><path fill="#EA74FF"stroke="#9AE0FF"stroke-miterlimit="10"d="M179.4,332.6v-20.1h2.4v20.1H179.4z"/><path fill="#EA74FF"stroke="#9AE0FF"stroke-miterlimit="10"d="M194,314.8v17.9h-2.4v-17.9h-6.2v-2.3h14.8v2.3H194z"/><path fill="#EA74FF"stroke="#9AE0FF"stroke-miterlimit="10"d="M203.7,332.6v-20.1h2.4v20.1H203.7z"/><path fill="#EA74FF"stroke="#9AE0FF"stroke-miterlimit="10"d="M224.5,332.6v-8h-10.9v8h-2.4v-20.1h15.7v20.1H224.5z\
