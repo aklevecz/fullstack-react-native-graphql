@@ -58,7 +58,7 @@ class C extends React.PureComponent<ChildProps<{viewHunted:any,me:any}>> {
                             const TICKET_URL = process.env.REACT_APP_AWS_BUCKET_URL+filename;
                             return (
                                 <div key={id}><p>{hunt.toUpperCase()}</p>
-                                <a style={{color:"red",fontFamily:"IBM Plex Sans",fontSize:"30px"}} href={TICKET_URL}>DOWNLOAD</a>
+                                <div><a style={{color:"red",fontFamily:"IBM Plex Sans",fontSize:"30px"}} href={TICKET_URL}>DOWNLOAD</a></div>
                                 <img src={TICKET_URL}/>
                                 </div>
                             );
