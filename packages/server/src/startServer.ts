@@ -97,6 +97,8 @@ export const startServer = async () => {
   server.express.use("/js", express.static("js"));
   server.express.use("/patterns", express.static("patterns"));
   server.express.use("/arAssets", express.static("arAssets"));
+  server.express.use("/animations", express.static("animations"));
+
 
 
   const cors = {
