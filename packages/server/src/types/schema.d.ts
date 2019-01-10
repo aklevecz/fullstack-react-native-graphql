@@ -51,6 +51,8 @@ __typename: "Hunted";
 id: string;
 artist: string;
 hunt: string;
+venue: string;
+date: string;
 finderId: string;
 filename: string;
 }

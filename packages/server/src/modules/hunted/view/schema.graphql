@@ -2,6 +2,8 @@ type Hunted {
   id: String!
   artist: String!
   hunt: String!
+  venue: String!
+  date: String!
   finderId: String!
   filename: String!
 }
