@@ -59,7 +59,8 @@ class C extends React.PureComponent<ChildProps<{viewHunted:any,me:any}>> {
                       <div style={{ marginLeft: "12%",
                                     fontSize: "20px",
                                     width: "59%",
-                                    marginBottom: "4%"}}>
+                                    marginBottom: "4%",
+                                    textAlign:"left"}}>
                         congratZ {me.me.spotifyName}! here are tickets you have hunted!
                       </div>}
                         {viewHunted.viewHunted && viewHunted.viewHunted.map((hunted:any)=> {
