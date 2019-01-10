@@ -50,23 +50,30 @@ class C extends React.PureComponent<ChildProps<{viewHunted:any,me:any}>> {
                     helloooo <span style={{color:'red'}}>{me.me.spotifyName}</span> here are the tickies that you have valiantly hunted :D
                     </div> */}
 
-                    <div style={{margin:'3%'}}>
+                    <div>
                         <Separator />
                     </div>
 
                     <div style={{color:'white', textAlign:'center', width:"80%", marginLeft:"20%",fontSize:"15px"}}>
+                    {viewHunted.viewHunted.length > 0 && 
+                      <div style={{ marginLeft: "12%",
+                                    fontSize: "20px",
+                                    width: "59%",
+                                    marginBottom: "4%"}}>
+                        congratZ {me.me.spotifyName}! here are tickets you have hunted!
+                      </div>}
                         {viewHunted.viewHunted && viewHunted.viewHunted.map((hunted:any)=> {
                             const {id, hunt, filename, venue, date} = hunted;
                             const dateString = `${dateArray[parseInt(date.split('-')[1],10)-1]} ${date.split('-')[2]}`;
                             const TICKET_URL = process.env.REACT_APP_AWS_BUCKET_URL+filename;
                             return (
                                 <div key={id} style={{gridTemplateColumns:"20% 20% 20% 20% 20%",gridTemplateRows:"25% 25% auto", display:'grid',height: '206px'}}>
-                                    <div style={{lineHeight:"3em", border:"white 2px solid", gridColumn:"1/4",gridRow:"1/1"}}>{hunt.toUpperCase()}</div>
-                                    <div style={{lineHeight:"3em", border:"white 2px solid", gridColumn:"4/5",gridRow:"1/1"}}>{dateString}</div>
-                                    <div style={{lineHeight:"3em", border:"white 2px solid", gridColumn:"2/5",gridRow:"2/2"}}>{venue.toUpperCase()}</div>
-                                    <div style={{lineHeight:"3em", border:"white 2px solid", gridColumn:"1/1",gridRow:"2/2"}}><a style={{color:"red",fontFamily:"IBM Plex Sans", textDecoration:'underline'}} href={TICKET_URL}>DL</a></div>
+                                    <div style={{lineHeight:"3em", border:"white 2px dotted", gridColumn:"1/4",gridRow:"1/1"}}>{hunt.toUpperCase()}</div>
+                                    <div style={{lineHeight:"3em", border:"white 2px dotted", gridColumn:"4/5",gridRow:"1/1"}}>{dateString}</div>
+                                    <div style={{lineHeight:"3em", border:"white 2px dotted", gridColumn:"2/5",gridRow:"2/2"}}>{venue.toUpperCase()}</div>
+                                    <div style={{lineHeight:"3em", border:"white 2px dotted", gridColumn:"1/1",gridRow:"2/2"}}><a style={{color:"red",fontFamily:"IBM Plex Sans", textDecoration:'underline'}} href={TICKET_URL}>DL</a></div>
 
-                                    <div style={{border:"white 2px solid", gridColumn:"1/5",gridRow:"3/3",padding:"5%"}}><img style={{width:"80%"}} src={TICKET_URL}/></div>
+                                    <div style={{border:"white 2px dotted", gridColumn:"1/5",gridRow:"3/3",padding:"5%"}}><img style={{width:"80%"}} src={TICKET_URL}/></div>
                                 </div>
                             );
                                     
@@ -74,7 +81,7 @@ class C extends React.PureComponent<ChildProps<{viewHunted:any,me:any}>> {
                         {viewHunted.viewHunted.length===0 && 
                         <div style={{color:'red',
                                     width:'59%',
-                                    margin:'0 auto',
+                                    marginLeft:'9%',
                                     fontSize: window.innerWidth > window.innerHeight ? '36px' : '23px'}}>
                             Oh dear! you have yet to find a hunted ticky!
                         </div>

@@ -1,7 +1,7 @@
 const ajaxCall2 = `
 if (!markerFound){
 	markerFound=true;
-	setTimeout(show_yesno, 3000);
+	setTimeout(show_yesno, 20000);
 
 	function show_yesno(){
 		ARContainer.appendChild(meepo);
@@ -170,11 +170,11 @@ export const arTemplate = (ticketCheck: boolean) => {
 
 		var arToolkitSource = new THREEx.ArToolkitSource({
 			// to read from the webcam 
-			// sourceType : 'webcam',
+			sourceType : 'webcam',
 			
 			// to read from an image
-			sourceType : 'image',
-			sourceUrl : THREEx.ArToolkitContext.baseURL + '/arAssets/qr-hvob_lmt_ar.png',		
+			// sourceType : 'image',
+			// sourceUrl : THREEx.ArToolkitContext.baseURL + '/arAssets/qr-hvob_lmt_ar.png',		
 
 			// to read from a video
 			// sourceType : 'video',
